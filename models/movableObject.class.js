@@ -9,7 +9,7 @@ class MovableObject extends DrawableObject{
     // bottleAmount = 100;
     lastHit = 0;
     dead = false;
-    // amountCoins = 0;
+    amountCoins = 0;
 
     applyGravity() {
         setInterval(() => { // this.y vor this.speedY-Abzug hat Wert 182.5 (nicht 280?)

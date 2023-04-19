@@ -4,12 +4,10 @@ class Coins extends MovableObject {
     x = 1000;
     height = 100;
     width = 100;
-    // otherDirection = false;
 
     constructor(x, i) {
         super().loadImage(this.IMAGE_COINS);
         this.x = x;
         this.i = i;
-        // this.level.setCoins(i);
     }
 }

@@ -7,8 +7,7 @@ class Character extends MovableObject {
     world;
     speed = 2.5;
     timeInterval = 100;
-    // coinArray = []
-
+    amountCoins = 0;
 
     // intervallId = null;
     // VarName1 = this.animating();
@@ -16,7 +15,6 @@ class Character extends MovableObject {
     // animateName = setInterval( () => {
     //     this.animating();
     // }, this.timeInterval);
-
 
     IMAGES_WALKING = [
         './img/img/2_character_pepe/2_walk/W-21.png',
@@ -78,14 +76,14 @@ class Character extends MovableObject {
         this.applyGravity();
 
         this.animation =
-        setInterval( () => {
-            this.animating();
-        }, this.timeInterval);
+            setInterval( () => {
+                this.animating();
+            }, this.timeInterval);
     
         this.movement =          
-        setInterval( () => {
-            this.moving();
-        }, 1000 / 60);
+            setInterval( () => {
+                this.moving();
+            }, 1000 / 60);
      
         // this.finalDeadAnimation = 
         //     setInterval( () => {
@@ -155,5 +153,15 @@ class Character extends MovableObject {
                 // clearInterval(this.finalDeadAnimation);
                 // clearInterval(this.animation);
             }
+    }
+
+    collectCoin() {
+        if (this.amountCoins >= 100) {
+            this.amountCoins = 100;
+            console.log('amountCoins is ' + this.amountCoins);
+        } else {
+            this.amountCoins += 10;
+            console.log('amountCoins is ' + this.amountCoins);
+        }
     }
 }

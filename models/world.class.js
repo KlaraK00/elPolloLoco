@@ -8,8 +8,6 @@ class World {
     statusbarHealth = new StatusbarHealth();
     statusbarBottle = new StatusbarBottle();
     throwableObject = [];
-    coinObjects = [];
-    // arrayCoins = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -23,7 +21,6 @@ class World {
     keyboard;
     setWorld() {
         this.character.world = this; //auf alle Variablen in der Klasse World Zugang
-        // this.coins.world = this;
     }
 
     run() {
@@ -41,11 +38,11 @@ class World {
                 }
             });
             this.level.coins.forEach((coin) => {
-                this.coinIndex = 0;
                 if(this.character.isColliding(coin) && this.keyboard.UP) {
-                    // this.coinIndex++;
+                    debugger;
                     this.character.collectCoin();
                     this.statusbarCoin.setPercentage(this.character.amountCoins);
+                    this.level.coins.splice(coin, 1);
                 }
             })
     }

@@ -13,16 +13,17 @@ class Level {
         this.backgroundObjects = backgroundObjects;
         this.coins = coins;
         this.bottles = bottles;
-        this.setLevel();
+        // this.setLevel();
         // this.functionForTheCoins();
     }
-    setLevel() {
-        this.coins.coins.level = this;
-    }
+    
+    // setLevel() {
+    //     this.coins.coins.level = this;
+    // }
 
-    setCoins(i) {
-        console.log('hello' + i);
-    }
+    // setCoins(i) {
+    //     console.log('hello' + i);
+    // }
 
 
     // functionForTheCoins() {

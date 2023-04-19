@@ -1,6 +1,5 @@
 class Coins extends MovableObject {
     IMAGE_COINS = `./img/img/8_coin/coin_1.png`;
-    level;
     y = 175;
     x = 1000;
     height = 100;
@@ -11,6 +10,6 @@ class Coins extends MovableObject {
         super().loadImage(this.IMAGE_COINS);
         this.x = x;
         this.i = i;
-        this.level.setCoins(i);
+        // this.level.setCoins(i);
     }
 }

@@ -8,7 +8,7 @@ class World {
     statusbarHealth = new StatusbarHealth();
     statusbarBottle = new StatusbarBottle();
     throwableObject = [];
-    // coinIndex = 0;
+    coinObjects = [];
     // arrayCoins = [];
 
     constructor(canvas, keyboard) {

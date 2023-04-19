@@ -1,0 +1,26 @@
+body {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url('./img/bgSahara.jpg');
+    font-family: 'zabars', Arial, Helvetica, sans-serif;
+}
+
+@font-face {
+    font-family:'zabars';
+    src: url('../fonts/zabars/zabars.ttf') format('truetype');
+}
+
+canvas {
+    background-color: black;
+}
+
+h1 {
+    font-size: 4em;
+    font-weight: 100;
+    letter-spacing: 3px;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+    /* font-style: 'zabars'; */
+}

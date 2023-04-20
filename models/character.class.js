@@ -8,6 +8,8 @@ class Character extends MovableObject {
     speed = 2.5;
     timeInterval = 100;
     amountCoins = 0;
+    amountBottlesInPercentage = 100;
+    // amountBottles = 100;
 
     // intervallId = null;
     // VarName1 = this.animating();
@@ -163,5 +165,9 @@ class Character extends MovableObject {
             this.amountCoins += 10;
             console.log('amountCoins is ' + this.amountCoins);
         }
+    }
+
+    collectingAnimationCharacter() {
+        console.log('collected Item')
     }
 }

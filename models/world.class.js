@@ -7,7 +7,7 @@ class World {
     statusbarCoin = new StatusbarCoin();
     statusbarHealth = new StatusbarHealth();
     statusbarBottle = new StatusbarBottle();
-    throwableObject = [];
+    throwedBottles = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -39,29 +39,36 @@ class World {
             });
             this.level.coins.forEach((coin) => {
                 if(this.character.isColliding(coin) && this.keyboard.UP) {
-                    debugger;
                     this.character.collectCoin();
                     this.statusbarCoin.setPercentage(this.character.amountCoins);
                     this.level.coins.splice(coin, 1);
+                    this.character.collectingAnimationCharacter();
                 }
-            })
+            });
+            this.level.bottles.forEach((bottle) => {
+                if(this.character.isColliding(bottle) && this.keyboard.UP) {
+                    debugger;
+                    this.level.bottles.splice(bottle, 1);
+                    this.throwedBottles.splice(0, 1);
+                    this.character.amountBottlesInPercentage = (20 - this.throwedBottles.length) * 5;
+                    this.statusbarBottle.setPercentage(this.character.amountBottlesInPercentage);
+                }
+            });
     }
 
     checkThrowObject() {
         if (this.keyboard.D) {
-            let bottlesLeft = 20 - this.throwableObject.length;
             if (!this.character.dead) {
-                if (bottlesLeft == 0) {
+                if (this.character.amountBottlesInPercentage == 0) {
                     return false;
                 } else {
-                    this.character;
+                    // this.character;
                     // this.ctx.scale(2, 2);
                     let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-                    this.throwableObject.push(bottle);
+                    this.throwedBottles.push(bottle);
                     // this.character.throwBottle();
-                    bottlesLeft = 20 - this.throwableObject.length;
-                    let bottlesLeftPercentage = bottlesLeft * 5;
-                    this.statusbarBottle.setPercentage(bottlesLeftPercentage);
+                    this.character.amountBottlesInPercentage = (20 - this.throwedBottles.length) * 5;
+                    this.statusbarBottle.setPercentage(this.character.amountBottlesInPercentage);
                     // this.statusbarBottle.setPercentage(this.character.bottleAmount);
                 }
             } 
@@ -87,7 +94,7 @@ class World {
         this.ctx.translate(this.cameraX, 0);
         // --------- space for fixed objects -----------
 
-        this.addObjectsToMap(this.throwableObject);
+        this.addObjectsToMap(this.throwedBottles);
         if (!this.character.dead) {
             this.addToMap(this.character);
         }

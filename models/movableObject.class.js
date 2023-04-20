@@ -9,7 +9,7 @@ class MovableObject extends DrawableObject{
     // bottleAmount = 100;
     lastHit = 0;
     dead = false;
-    amountCoins = 0;
+
 
     applyGravity() {
         setInterval(() => { // this.y vor this.speedY-Abzug hat Wert 182.5 (nicht 280?)
@@ -75,7 +75,7 @@ class MovableObject extends DrawableObject{
     }
     
     hit() {
-        this.energy -= 5;
+        this.energy -= 2.5;
         // this.character.scale(2, 2);
         if (this.energy < 0) {
             this.energy = 0;
@@ -105,15 +105,5 @@ class MovableObject extends DrawableObject{
 
     isDead() {
         return this.energy == 0;
-    }
-
-    collectCoin() {
-        if (this.amountCoins >= 100) {
-            this.amountCoins = 100;
-            console.log('amountCoins is ' + this.amountCoins);
-        } else {
-            this.amountCoins += 10;
-            console.log('amountCoins is ' + this.amountCoins);
-        }
     }
 }

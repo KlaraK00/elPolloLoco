@@ -18,13 +18,11 @@ class StatusbarHealth extends DrawableObject {
         this.height = 50;
         this.width = 170;
         this.setPercentage(100);
-        // this.draw();
     }
 
     //setPercentage(50);
     setPercentage(percentage) {
         this.percentage = percentage; // => 0 ... 5
-        // this.draw(IMAGES[this.resolveImageIndex(this.percentage)]);
         let path = this.IMAGES_HEALTH[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }

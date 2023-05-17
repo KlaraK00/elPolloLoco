@@ -8,16 +8,21 @@ class MovableObject extends DrawableObject{
     energy = 100;
     // bottleAmount = 100;
     lastHit = 0;
-    dead = false;
+    deadCharacter = false;
+
+    offset = {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0
+    }
 
 
     applyGravity() {
-        setInterval(() => { // this.y vor this.speedY-Abzug hat Wert 182.5 (nicht 280?)
+        setStoppableInterval(() => { // this.y vor this.speedY-Abzug hat Wert 182.5 (nicht 280?)
             if (this.isAboveGround() || this.speedY > 0) {
-            this.y -= this.speedY; 
-            console.log('speedY ist ', this.speedY);
-            console.log('y ist ', this.y);
-            this.speedY -= this.acceleration;
+                this.y -= this.speedY; 
+                this.speedY -= this.acceleration;
             }
         }, 1000 / 25)
     }
@@ -35,7 +40,7 @@ class MovableObject extends DrawableObject{
     }
     
     moveLeft() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.x -= this.speed;
             }, 1000 / 60);
     }
@@ -55,15 +60,17 @@ class MovableObject extends DrawableObject{
     }
 
     jump() {
-        this.speedY = 20;
+        this.speedY = 25;
     }
 
     //Character.isColliding(chicken)
     isColliding(obj) {
-        return  this.x + this.width > obj.x &&
-                this.y + this.height > obj.y &&
-                this.x < obj.x &&
-                this.y < obj.y + obj.height;
+        console.log()
+        if(this instanceof Character) { // KEINER REAKTION, nur Zeile 69 ausgeführt
+            return this.offsetColliding(obj);
+        } else {
+            return this.nonOffsetColliding(obj);
+        } 
 
         // zweite (genauere) Formel funktioniert nicht!
         // return  (this.x + this.width) >= obj.x &&
@@ -73,6 +80,24 @@ class MovableObject extends DrawableObject{
         //         obj.onCollisionCourse;
         
     }
+
+    offsetColliding(obj) {
+        return  this.x + this.width - this.offset.right > obj.x + obj.offset.left && // R -> L
+                this.y + this.height - this.offset.bottom > obj.y + obj.offset.top && // T -> B
+                this.x + this.offset.left < obj.x + obj.width - obj.offset.right && // L -> R
+                this.y + this.offset.top < obj.y + obj.height - obj.offset.bottom; // B -> T
+    }
+
+    nonOffsetColliding(obj) {
+        return  this.x + this.width > obj.x &&
+                this.y + this.height > obj.y &&
+                this.x < obj.x &&
+                this.y < obj.y + obj.height;
+    }
+
+    // jumpOnChicken(obj) {
+    //     return this.y + this.height - this.offset.bottom > obj.y + obj.offset.top
+    // }
     
     hit() {
         this.energy -= 2.5;

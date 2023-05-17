@@ -12,6 +12,12 @@ class DrawableObject {
     loadImage(path) {
         this.img = new Image(); //Image-Objekt existiert bereits; <img id="image">; image-tag / document.getElementById('image')
         this.img.src = path;
+        // if (x) {
+        // this.img.x = x;
+        // this.img.y = y;
+        // this.img.height = height;
+        // this.img.width = width;
+        // }
     }
 
     loadImages(array) {
@@ -27,7 +33,7 @@ class DrawableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken) { 
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof ThrowableObject) { 
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'green';

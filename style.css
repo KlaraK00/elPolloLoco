@@ -15,6 +15,7 @@ body {
 
 canvas {
     background-color: black;
+    display: block;
 }
 
 h1 {
@@ -23,4 +24,35 @@ h1 {
     letter-spacing: 3px;
     text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
     /* font-style: 'zabars'; */
+}
+
+.dNone {
+    display: none;
+}
+
+.screen {
+    position: absolute;
+    z-index: 99999;
+    width: 720px;
+    height: 480px;
+}
+
+/* Smartphones */
+@media only screen and (max-width: 720px) {
+    canvas {
+        width: 100%;
+    }
+    .endscreen {
+        width: 100%;
+    }
+}
+
+/* Smartphones */
+@media only screen and (max-height: 480px) {
+    canvas {
+        height: 100vh;
+    }
+    .endscreen {
+        height: 100vh;
+    }
 }

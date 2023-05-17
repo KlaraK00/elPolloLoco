@@ -9,6 +9,23 @@ class Character extends MovableObject {
     timeInterval = 100;
     amountCoins = 0;
     amountBottlesInPercentage = 100;
+    myTimeout;
+    characterDead = false;
+
+    // offset = {
+    //     top: 120,
+    //     left: 30,
+    //     right: 40,
+    //     bottom: 30
+    // }
+
+    offset = {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0
+    }
+
     // amountBottles = 100;
 
     // intervallId = null;
@@ -68,7 +85,7 @@ class Character extends MovableObject {
         'img/img/2_character_pepe/4_hurt/H-43.png'
     ]
 
-    constructor() {
+    constructor(world) {
         super().loadImage('./img/img/2_character_pepe/2_walk/W-21.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
@@ -76,16 +93,14 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
         this.applyGravity();
-
-        this.animation =
-            setInterval( () => {
-                this.animating();
-            }, this.timeInterval);
-    
-        this.movement =          
-            setInterval( () => {
-                this.moving();
-            }, 1000 / 60);
+        this.world = world;
+        setStoppableInterval( () => {
+            this.animating();
+        }, 150);
+            
+        setStoppableInterval( () => {
+            this.moving();
+        }, 1000 / 60);
      
         // this.finalDeadAnimation = 
         //     setInterval( () => {
@@ -108,8 +123,7 @@ class Character extends MovableObject {
 
     animating() {
         if (this.isDead()) {
-            clearInterval(this.movement);
-            this.playDeadAnimation(this.IMAGES_DEAD);
+            this.characterIsDead();
             // this.playAnimation(this.IMAGES_DEAD, this.dead);
         } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
@@ -139,7 +153,7 @@ class Character extends MovableObject {
     playDeadAnimation(images) {
         this.currentImage = 0;
         this.finalDeadAnimation = 
-            setInterval( () => {
+            setStoppableInterval( () => {
                 this.animatingDead(images);
             }, 200);
     }
@@ -151,7 +165,7 @@ class Character extends MovableObject {
             this.img = this.imageCache[path];
             this.currentImage++;
             if (this.currentImage > 6) {
-                this.dead = true;
+                this.deadCharacter = true;
                 // clearInterval(this.finalDeadAnimation);
                 // clearInterval(this.animation);
             }
@@ -168,6 +182,18 @@ class Character extends MovableObject {
     }
 
     collectingAnimationCharacter() {
-        console.log('collected Item')
+        console.log('collected Item');
+        
+    }
+
+    characterIsDead() {
+        clearInterval(this.movement);
+        this.playDeadAnimation(this.IMAGES_DEAD);
+        this.myTimeout = setTimeout(stopGame, 2000);
+        // debugger;
+        // this.world.ctx.translate(-this.cameraX, 0);
+        // this.loadImage('img/img/9_intro_outro_screens/game_over/you lost.png', 100, 100, 100, 100);
+        // this.world.addToMap(this.img);
+        // this.world.ctx.translate(this.cameraX, 0);
     }
 }

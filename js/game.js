@@ -7,10 +7,11 @@ let youLost = true;
 
 
 function init() {
-    debugger;
+    // debugger;
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-    console.log('My character is ', world.character);}
+    console.log('My character is ', world.character);
+}
 
 
 window.addEventListener("keydown", (event) => {
@@ -75,6 +76,7 @@ function startScreenDisappears() {
 
 
 function stopGame() {
+    // debugger;
     endOfGame = true;
     endAllIntervals();
     showEndscreen();

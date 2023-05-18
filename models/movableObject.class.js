@@ -9,6 +9,8 @@ class MovableObject extends DrawableObject{
     // bottleAmount = 100;
     lastHit = 0;
     deadCharacter = false;
+    imageCurrent = 0;
+    // endboss = this.level.enemies[world.level.enemies.length - 1];
 
     offset = {
         top: 0,
@@ -46,17 +48,30 @@ class MovableObject extends DrawableObject{
     }
 
     playAnimation(images) {
-        // this.currentImage = 0;
-        let i = this.currentImage % images.length; // let i = 6 % 6; 1, Rest 0 (Modulu hebt nur den Rest auf)
-        // i = 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, ... % = "modulo"
-        let path = images[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
-            // if (this instanceof Character && dead) {
-            //     this.currentImage == 3;
-            // } else {
-            //     this.currentImage++;
-            // }
+        if (this instanceof Endboss && this.isDead()) {
+            // this.currentImage = 0;
+            let i = this.imageCurrent;
+            setStoppableInterval(() => { //wird nicht ausgeführt, wieso?
+                debugger;
+                if (i < 3) {
+                    let path = images[i];
+                    this.img = this.imageCache[path];
+                    this.imageCurrent++;
+                }
+            }, 500);
+        } else {
+            // this.currentImage = 0;
+            let i = this.currentImage % images.length; // let i = 6 % 6; 1, Rest 0 (Modulu hebt nur den Rest auf)
+            // i = 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, ... % = "modulo"
+            let path = images[i];
+            this.img = this.imageCache[path];
+            this.currentImage++;
+        }
+        // if (this instanceof Character && dead) {
+        //     this.currentImage == 3;
+        // } else {
+        //     this.currentImage++;
+        // }
     }
 
     jump() {

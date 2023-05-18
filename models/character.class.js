@@ -126,6 +126,7 @@ class Character extends MovableObject {
             this.characterIsDead();
             // this.playAnimation(this.IMAGES_DEAD, this.dead);
         } else if (this.isHurt()) {
+            console.log("is Hurt Character", this.isHurt());
             this.playAnimation(this.IMAGES_HURT);
         } else if (this.isAboveGround()) {
             this.timeInterval = 100;
@@ -189,6 +190,7 @@ class Character extends MovableObject {
     characterIsDead() {
         clearInterval(this.movement);
         this.playDeadAnimation(this.IMAGES_DEAD);
+        // debugger;
         this.myTimeout = setTimeout(stopGame, 2000);
         // debugger;
         // this.world.ctx.translate(-this.cameraX, 0);

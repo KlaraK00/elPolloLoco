@@ -97,13 +97,10 @@ class World {
         this.throwedBottles.forEach((bottle) => {
             if (this.endboss.isColliding(bottle)) {
                 if (this.endboss.isDead()) {
-                // if (this.level.enemies[this.level.enemies.length - 1].energy == 0 || this.level.enemies[this.level.enemies.length - 1].energy == false) {
-
                     this.endboss.energy = false;
                     this.youLost = true;
                     this.myTimeout = setTimeout(stopGame, 2000);
                 } else {
-                    debugger;
                     this.endboss.hit();                }
             }
             this.endboss.statusbarHealthEndboss.setPercentage(this.endboss.energy);
@@ -149,9 +146,10 @@ class World {
             this.addToMap(this.character);
 
         }
-        if (!this.level.enemies[this.level.enemies.length - 1].energy == false) {
-            this.addObjectsToMap(this.level.enemies);
-        }
+        // if (!this.level.enemies[this.level.enemies.length - 1].energy == false) {
+        // if (!this.endboss.deadEndboss) {
+        this.addObjectsToMap(this.level.enemies);
+        // }
 
         this.ctx.translate(-this.cameraX, 0);
 

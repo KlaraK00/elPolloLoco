@@ -7,6 +7,12 @@ let level1 = new Level(
         new Endboss(),
     ],
     [
+        new Cloud(),
+        new Cloud(),
+        new Cloud(),
+        new Cloud(),
+        new Cloud(),
+        new Cloud(),
         new Cloud()
     ],
     [
@@ -52,11 +58,22 @@ let level1 = new Level(
         new BackgroundObject('./img/img/5_background/layers/1_first_layer/2.png', 719*7),
     ],
     [
-        new Coins(1000, 'coin1'),
-        new Coins(1200, 'coin2')
+        new Coins(1100),
+        new Coins(1200),
+        new Coins(1300),
+        new Coins(1400),
+        new Coins(1600),
+        new Coins(1700),
+        new Coins(1800),
+        new Coins(1900),
+        new Coins(2700),
+        new Coins(2800), 
     ],
     [   
-        new Bottles(1500),
-        new Bottles(1700)
+        new Bottles(2500, 200),
+        new Bottles(2500, 250),
+        new Bottles(2900, 200),
+        new Bottles(3350, 200),
+        new Bottles(3350, 250)
     ]
 );

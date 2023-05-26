@@ -9,9 +9,6 @@
 <!-- moveableObject Zeile 109 checkcollision -> noch coins mit index verknüpfen
      mit forschleife? oder mit modulu? mhm mal schaui -->
 <!-- world Zeile 58 scale funktioniert nicht? how it's going? -->
-<!-- Endboss wird animating ausgeführt aber auch world variable nicht definiert... -->
-<!-- movableObjetcts funktion jumpOnChicken() entkommentieren & world.class.js umkommentieren colliding-->
-<!-- endbossIsDead funktioniert nicht, es wird td beendet aber wie?? -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +18,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./style.css">
+
     <script src="./models/keyboard.class.js"></script>
+    <script src="./js/game.js"></script>
     <script src="./models/drawableObject.class.js"></script>
     <script src="./models/movableObject.class.js"></script>
     <script src="./models/character.class.js"></script>
@@ -36,18 +35,49 @@
     <script src="./models/backgroundObject.class.js"></script>
     <script src="./models/level.class.js"></script>
     <script src="./models/throwableObject.class.js"></script>
-    <script src="./js/game.js"></script>
+
     <script src="./models/endboss.class.js"></script> 
     <script src="./levels/level1.js"></script>
 </head>
 <body>
-    <h1>El pollo loco</h1>
-    <div id="canvasDiv">
-        <img onclick="startGame()" id="startScreen" src="./img/img/9_intro_outro_screens/start/startscreen_1.png" class="screen" alt="startscreen">
-        <img id="endscreenGameOver" src="./img/img/9_intro_outro_screens/game_over/game over.png" class="screen dNone" alt="GameOver">
-        <img id="endscreenYouLost" src="./img/img/9_intro_outro_screens/game_over/you lost.png" class="screen dNone" alt="endscreen">
+    <!-- <div id="fullscreen"> -->
+        <!-- <h1>El pollo loco</h1> -->
+        <div id="canvasDiv">
+            <div class="mobileActionBtn">
+                <div class="mobileActionBtnTop">
+                    <div class="mobileActionBtnTopImgDiv">
+                        <img id="mobileActionBtnTopImgDiv" onclick="startGame()" src="./img/img/10_others/play.png" alt="play">
+                    </div>
+                    <div class="mobileActionBtnTopImgDiv">
+                        <img id="mobileActionBtnTopImgDiv" src="./img/img/10_others/mute.png" alt="mute">
+                    </div>
+                </div>
+                <div class="mobileActionBtnBottom">
+                    <div>
+                        <div class="mobileActionBtnBottomImgDiv">
+                            <img id="btnLeft" src="./img/img/10_others/arrowLeft.png" alt="arrow left">
+                        </div>
+                        <div class="mobileActionBtnBottomImgDiv">
+                            <img id="btnRight" src="./img/img/10_others/arrowRight.png" alt="arrow right">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="mobileActionBtnBottomImgDiv">
+                            <img id="btnJump" src="./img/img/10_others/arrowJump.png" alt="jump">
+                        </div>
+                        <div class="mobileActionBtnBottomImgDiv">
+                            <img id="btnThrow" src="./img/img/10_others/arrowGo.png" alt="throw">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <img id="startScreen" src="./img/img/9_intro_outro_screens/start/startscreen_1.png" class="screen" alt="startscreen">
+            <img id="endscreenGameOver" src="./img/img/9_intro_outro_screens/game_over/game over.png" class="screen dNone" alt="GameOver">
+            <img id="endscreenYouLost" src="./img/img/9_intro_outro_screens/game_over/you lost.png" class="screen dNone" alt="endscreen">
             <canvas id="canvas" width="720" height="480">
             </canvas>
-    </div>
+
+        </div>
+    <!-- </div> -->
 </body>
 </html>

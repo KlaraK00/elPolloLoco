@@ -4,13 +4,17 @@ let intervalIds = [];
 let endOfGame = false;
 let world; 
 let youLost = true;
+let endboss;
+let alreadyPlayed = false;
+let playedAlready = false;
 
 
 function init() {
-    // debugger;
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     console.log('My character is ', world.character);
+    endboss = world.level.enemies[world.level.enemies.length - 1];
+    this.enboss = endboss;
 }
 
 
@@ -65,8 +69,14 @@ function setStoppableInterval(fn, time) {
 
 
 function startGame() {
+    topBtnsDissapear();
     startScreenDisappears();
     init();
+}
+
+
+function topBtnsDissapear() {
+    document.getElementById('mobileActionBtnTopImgDiv').classList.add('dNone');
 }
 
 
@@ -112,4 +122,30 @@ function showYouLostScreen() {
 
 function showGameOverScreen() {
     document.getElementById('endscreenGameOver').classList.remove('dNone');
+}
+
+
+function fullscreen() {
+    let fullscreen = document.getElementById('canvasDiv');
+    enterFullscreen(fullscreen);
+}
+
+
+function enterFullscreen(element) {
+    if(element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if(element.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
+      element.msRequestFullscreen();
+    } else if(element.webkitRequestFullscreen) {  // iOS Safari
+      element.webkitRequestFullscreen();
+    }
+}
+
+
+function exitFullscreen() {
+    if(document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if(document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
 }

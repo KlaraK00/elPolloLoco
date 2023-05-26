@@ -10,40 +10,34 @@ class World {
     character = new Character(this);
     keyboard;
     myTimeout;
-    enemiesLength = this.enemiesLength();
     endboss = this.level.enemies[this.level.enemies.length - 1];
-    // lifeEndboss = 100;
 
 
-    enemiesLength() {
-        // debugger;
-        if (this.level.enemies.length < 1) {
-            return 0 
-        } else {
-            return this.level.enemies.length - 1
-        };
-    }
+    // enemiesLength() {
+    //     // debugger;
+    //     if (this.level.enemies.length < 1) {
+    //         return 0 
+    //     } else {
+    //         return this.level.enemies.length - 1
+    //     };
+    // }
+
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.draw();
-        // this.setWorld();
         this.run();
-        // console.log("endboss-energy", this.endboss.energy)
     }
 
-
-    // setWorld() {
-    //     // this.character.world = this; //auf alle Variablen in der Klasse World Zugang
-    //     this.level.enemies[this.level.enemies.length - 1].world = this;
-    // }
 
     run() {
         setStoppableInterval(this.checkCollisions.bind(this), 200);
         setStoppableInterval(this.checkThrowObject.bind(this), 200);
+        setStoppableInterval(this.checkEndbossAnimation.bind(this), 200);
     }
+
 
     checkCollisions() {
         this.checkCollisionEnemies();
@@ -52,19 +46,25 @@ class World {
         this.checkCollisionThrowableObject();
     }
 
+    // checkEndboss() {
+    //     this.checkEndbossAnimation();
+    // }
+
+    checkEndbossAnimation() {
+        if (!alreadyPlayed && this.character.x > 2500) {
+            endboss.fullAnimation();
+            alreadyPlayed = true
+        }
+    }
+
     checkCollisionEnemies() {
-        // debugger;
-        // this.level.enemies.forEach((enemy) => {
-        //     if(this.character.jumpOnChicken(enemy)) {
-        //         debugger;
-        //         this.level.enemies.splice(enemy, 1);
-        //     } else(this.character.isColliding(enemy)) {
-        //         this.character.hit();
-        //         this.statusbarHealth.setPercentage(this.character.energy);
-        //     }
-        // });
+
         this.level.enemies.forEach((enemy) => {
-            if(this.character.isColliding(enemy)) {
+            if(this.character.isColliding(enemy) && this.character.isAboveGround()) {
+                this.level.enemies.splice(enemy, 1);
+                debugger;
+                this.character.jumpsOnChicken();
+            } else if(this.character.isColliding(enemy)) {
                 this.character.hit();
                 this.statusbarHealth.setPercentage(this.character.energy);
             }
@@ -77,7 +77,6 @@ class World {
                 this.character.collectCoin();
                 this.statusbarCoin.setPercentage(this.character.amountCoins);
                 this.level.coins.splice(coin, 1);
-                this.character.collectingAnimationCharacter();
             }
         });
     }
@@ -137,7 +136,7 @@ class World {
         this.addToMap(this.statusbarHealth);
         this.addToMap(this.statusbarCoin);
         this.addToMap(this.statusbarBottle);
-        this.addToMap(this.level.enemies[this.enemiesLength].statusbarHealthEndboss);
+        this.addToMap(this.level.enemies[this.level.enemies.length - 1].statusbarHealthEndboss);
         this.ctx.translate(this.cameraX, 0);
         // --------- space for fixed objects -----------
 
@@ -146,10 +145,8 @@ class World {
             this.addToMap(this.character);
 
         }
-        // if (!this.level.enemies[this.level.enemies.length - 1].energy == false) {
-        // if (!this.endboss.deadEndboss) {
+
         this.addObjectsToMap(this.level.enemies);
-        // }
 
         this.ctx.translate(-this.cameraX, 0);
 
@@ -176,7 +173,6 @@ class World {
         }
 
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
 
         if(mo.otherDirection) {
             this.flipImageBack(mo);

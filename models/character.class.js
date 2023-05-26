@@ -11,29 +11,19 @@ class Character extends MovableObject {
     amountBottlesInPercentage = 100;
     myTimeout;
     characterDead = false;
-
-    // offset = {
-    //     top: 120,
-    //     left: 30,
-    //     right: 40,
-    //     bottom: 30
-    // }
-
     offset = {
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0
+        top: 120,
+        left: 30,
+        right: 40,
+        bottom: 30
     }
-
-    // amountBottles = 100;
-
     // intervallId = null;
     // VarName1 = this.animating();
     // animate = null;
     // animateName = setInterval( () => {
     //     this.animating();
     // }, this.timeInterval);
+
 
     IMAGES_WALKING = [
         './img/img/2_character_pepe/2_walk/W-21.png',
@@ -43,6 +33,7 @@ class Character extends MovableObject {
         './img/img/2_character_pepe/2_walk/W-25.png',
         './img/img/2_character_pepe/2_walk/W-26.png'
     ]
+
 
     IMAGES_JUMPING = [
         './img/img/2_character_pepe/3_jump/J-31.png',
@@ -55,6 +46,7 @@ class Character extends MovableObject {
         './img/img/2_character_pepe/3_jump/J-38.png',
         './img/img/2_character_pepe/3_jump/J-39.png',
     ]
+
 
     IMAGES_STANDING = [
         './img/img/2_character_pepe/1_idle/idle/I-1.png',
@@ -69,6 +61,7 @@ class Character extends MovableObject {
         './img/img/2_character_pepe/1_idle/idle/I-10.png'
     ]
 
+
     IMAGES_DEAD = [
         './img/img/2_character_pepe/5_dead/D-51.png',
         './img/img/2_character_pepe/5_dead/D-52.png',
@@ -79,11 +72,13 @@ class Character extends MovableObject {
         './img/img/2_character_pepe/5_dead/D-57.png'
     ]
 
+
     IMAGES_HURT = [
         'img/img/2_character_pepe/4_hurt/H-41.png',
         'img/img/2_character_pepe/4_hurt/H-42.png',
         'img/img/2_character_pepe/4_hurt/H-43.png'
     ]
+
 
     constructor(world) {
         super().loadImage('./img/img/2_character_pepe/2_walk/W-21.png');
@@ -97,16 +92,15 @@ class Character extends MovableObject {
         setStoppableInterval( () => {
             this.animating();
         }, 150);
-            
         setStoppableInterval( () => {
             this.moving();
         }, 1000 / 60);
-     
         // this.finalDeadAnimation = 
         //     setInterval( () => {
         //         this.animatingDead(this.IMAGES_DEAD);
         //     }, 200);
     }
+
 
     moving() {
         if(this.world.keyboard.RIGHT && this.x < this.world.level.levelEndX) {
@@ -115,21 +109,22 @@ class Character extends MovableObject {
         if(this.world.keyboard.LEFT && this.x > 0) {
             this.moveWrongDirection();
         } //wieso 172.5 genau??
-        if(this.world.keyboard.UP && this.y == 160) {
+        if(this.world.keyboard.UP && this.y == 145) {
             this.jump();
         }
         this.world.cameraX = -this.x + 200;
     }
 
+
     animating() {
+        console.log('this.y = '+ this.y);
         if (this.isDead()) {
             this.characterIsDead();
-            // this.playAnimation(this.IMAGES_DEAD, this.dead);
         } else if (this.isHurt()) {
             console.log("is Hurt Character", this.isHurt());
             this.playAnimation(this.IMAGES_HURT);
         } else if (this.isAboveGround()) {
-            this.timeInterval = 100;
+            // this.timeInterval = 100;
             this.playAnimation(this.IMAGES_JUMPING);
         } else if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
             this.timeInterval = 100;
@@ -141,36 +136,41 @@ class Character extends MovableObject {
         }
     }
 
+
     moveRightDirection() {
         this.x += this.speed;
         this.otherDirection = false;
     }
     
+
     moveWrongDirection() {
         this.x -= this.speed;
         this.otherDirection = true;
     }
 
-    playDeadAnimation(images) {
-        this.currentImage = 0;
-        this.finalDeadAnimation = 
-            setStoppableInterval( () => {
-                this.animatingDead(images);
-            }, 200);
-    }
 
-    animatingDead(images) {
-            let i = this.currentImage % images.length; // let i = 6 % 6; 1, Rest 0 (Modulu hebt nur den Rest auf)
-            // i = 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, ... % = "modulo"
-            let path = images[i];
-            this.img = this.imageCache[path];
-            this.currentImage++;
-            if (this.currentImage > 6) {
-                this.deadCharacter = true;
-                // clearInterval(this.finalDeadAnimation);
-                // clearInterval(this.animation);
-            }
-    }
+    // playDeadAnimation(images) {
+    //     this.currentImage = 0;
+    //     this.finalDeadAnimation = 
+    //         setStoppableInterval( () => {
+    //             this.animatingDead(images);
+    //         }, 200);
+    // }
+
+
+    // animatingDead(images) {
+    //         let i = this.currentImage % images.length; // let i = 6 % 6; 1, Rest 0 (Modulu hebt nur den Rest auf)
+    //         // i = 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, ... % = "modulo"
+    //         let path = images[i];
+    //         this.img = this.imageCache[path];
+    //         this.currentImage++;
+    //         if (this.currentImage > 6) {
+    //             this.deadCharacter = true;
+    //             // clearInterval(this.finalDeadAnimation);
+    //             // clearInterval(this.animation);
+    //         }
+    // }
+
 
     collectCoin() {
         if (this.amountCoins >= 100) {
@@ -182,20 +182,16 @@ class Character extends MovableObject {
         }
     }
 
-    collectingAnimationCharacter() {
-        console.log('collected Item');
-        
-    }
+
+    // collectingAnimationCharacter() {
+    //     console.log('collected Item');
+    // }
+
 
     characterIsDead() {
-        clearInterval(this.movement);
-        this.playDeadAnimation(this.IMAGES_DEAD);
-        // debugger;
+        this.playAnimation(this.IMAGES_DEAD);
+        // this.deadCharacter = true;
+        // clearInterval(this.moving);
         this.myTimeout = setTimeout(stopGame, 2000);
-        // debugger;
-        // this.world.ctx.translate(-this.cameraX, 0);
-        // this.loadImage('img/img/9_intro_outro_screens/game_over/you lost.png', 100, 100, 100, 100);
-        // this.world.addToMap(this.img);
-        // this.world.ctx.translate(this.cameraX, 0);
     }
 }

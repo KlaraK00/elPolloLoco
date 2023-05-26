@@ -6,9 +6,10 @@ class Bottles extends MovableObject {
     height = 50;
     width = 50;
 
-    constructor(x) {
+    constructor(x, y) {
         super().loadImage(this.IMAGE_BOTTLE);
         this.x = x;
+        this.y = y;
         // this.collectingAnimation(this.x);
     }
 }

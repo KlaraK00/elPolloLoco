@@ -37,6 +37,86 @@ h1 {
     height: 480px;
 }
 
+.mobileActionBtn {
+    position: absolute;
+    z-index: 999999;
+    width: 720px;
+    height: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.mobileActionBtn img {
+    height: 45px;
+    width: 45px;
+}
+
+.mobileActionBtnTop {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+/* .mobileActionBtnTop img {
+    padding: 10px;
+} */
+
+.mobileActionBtnTopImgDiv {
+    height: 60px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mobileActionBtnTop img:hover {
+    cursor: pointer;
+}
+
+.mobileActionBtnTop img:active {
+    height: 50px;
+    width: 50px;
+}
+
+.mobileActionBtnBottom {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
+
+}
+
+.mobileActionBtnBottomImgDiv {
+    height: 60px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mobileActionBtnBottom>div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+/* .mobileActionBtnBottom img{
+    margin: 10px;
+} */
+
+.mobileActionBtnBottom img:hover {
+    cursor: pointer;
+}
+
+.mobileActionBtnBottom img:active {
+    height: 50px;
+    width: 50px;
+}
+
 /* Smartphones */
 @media only screen and (max-width: 720px) {
     canvas {

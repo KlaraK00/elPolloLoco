@@ -46,9 +46,6 @@ class World {
         this.checkCollisionThrowableObject();
     }
 
-    // checkEndboss() {
-    //     this.checkEndbossAnimation();
-    // }
 
     checkEndbossAnimation() {
         if (!alreadyPlayed && this.character.x > 2500) {
@@ -58,7 +55,6 @@ class World {
     }
 
     checkCollisionEnemies() {
-
         this.level.enemies.forEach((enemy) => {
             if(this.character.isColliding(enemy) && this.character.isAboveGround()) {
                 this.level.enemies.splice(enemy, 1);

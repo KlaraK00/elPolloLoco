@@ -18,8 +18,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./style.css">
-
     <script src="./models/keyboard.class.js"></script>
+    <script src="./js/event.js"></script>
     <script src="./js/game.js"></script>
     <script src="./models/drawableObject.class.js"></script>
     <script src="./models/movableObject.class.js"></script>
@@ -35,7 +35,6 @@
     <script src="./models/backgroundObject.class.js"></script>
     <script src="./models/level.class.js"></script>
     <script src="./models/throwableObject.class.js"></script>
-
     <script src="./models/endboss.class.js"></script> 
     <script src="./levels/level1.js"></script>
 </head>
@@ -76,6 +75,24 @@
             <img id="endscreenYouLost" src="./img/img/9_intro_outro_screens/game_over/you lost.png" class="screen dNone" alt="endscreen">
             <canvas id="canvas" width="720" height="480">
             </canvas>
+            <div class="description">
+                <div>
+                    <div>
+                        "RIGHT" = move right
+                    </div>
+                    <div>
+                        "LEFT" = move left
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        "D" = throw bottles
+                    </div>
+                    <div>
+                        "UP" = jump
+                    </div>
+                </div>
+            </div>
 
         </div>
     <!-- </div> -->

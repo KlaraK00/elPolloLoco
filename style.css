@@ -1,5 +1,5 @@
 body {
-    height: 90vh;
+    height: 97vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,7 +16,10 @@ body {
 canvas {
     background-color: black;
     display: block;
+    /* height: 480px;
+    width: 720px; */
 }
+
 
 h1 {
     font-size: 4em;
@@ -27,24 +30,32 @@ h1 {
 }
 
 .dNone {
-    display: none;
+    display: none !important;
 }
 
 .screen {
+    /* display: block; */
     position: absolute;
     z-index: 99999;
-    width: 720px;
-    height: 480px;
+    width: 100%;
+    height: calc(100% - 104px);
+    /* width: 720px; */
+    object-fit: contain;
+}
+
+.descriptionDummy {
+    height: 104px;
+    background-color: black;
 }
 
 .mobileActionBtn {
     position: absolute;
     z-index: 999999;
-    width: 720px;
-    height: 480px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    width: 100%;
+    height: calc(100% - 104px);
 }
 
 .mobileActionBtn img {
@@ -128,7 +139,7 @@ h1 {
 .description>div {
     display: flex;
     flex-direction: column;
-    width: 280px;
+    width: calc(50% - 80px);
     padding: 20px;
     /* padding-left: 10p'x;
     padding-right: 10px;' */
@@ -146,17 +157,104 @@ h1 {
     .description {
         width: 100%;
     }
-    .description>div {
+    /* .description>div {
         width: unset;
+    } */
+    .mobileActionBtn {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .description>div {
+        width: calc(50% - 20px);
+        padding: 10px
+    }
+    .description {
+        font-size: 1.4em;
+    }
+    .mobileActionBtn {
+        height: calc(100% - 64.8px); 
+    }
+    .screen {
+        height: calc(100% - 64.8px);
+    }
+    /* resposiveness mobileActionBtn fertig und alles nacheinander */
+}
+
+@media only screen and (max-width: 450px) {
+    .mobileActionBtn img {
+        height: 30px;
+        width: 30px;
+    }
+    .mobileActionBtnBottomImgDiv {
+        height: 45px;
+        width: 45px;
+    }
+    .mobileActionBtnBottom img:active {
+        height: 40px;
+        width: 40px;
+    }
+    .mobileActionBtnTop img:active {
+        height: 40px;
+        width: 40px;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .description {
+        font-size: 1.2em;
+    }
+    .description>div {
+        width: calc(50% - 2px);
+        padding: 2px;
+    }
+    .mobileActionBtnTopImgDiv {
+        height: 40px;
+        width: 40px;
+    }
+    .mobileActionBtnTop img:active {
+        height: 25px;
+        width: 25px;
+    }
+    .mobileActionBtnBottom img:active {
+        height: 25px;
+        width: 25px;  
+    }
+    .mobileActionBtnBottom {
+        padding: 5px;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+    .mobileActionBtn {
+        height: calc(100% - 42.4px);
+    }
+    .screen {
+        height: calc(100% - 42.4px);
+    }
+    .mobileActionBtnBottomImgDiv {
+        align-items: end;
+        padding-bottom: 5px;
+    }
+    .mobileActionBtn img {
+        height: 20px;
+        width: 20px;
     }
 }
 
 /* Smartphones */
 @media only screen and (max-height: 480px) {
-    canvas {
+    /* canvas {
         height: 100vh;
     }
-    .endscreen {
+    .screen {
         height: 100vh;
     }
+    .mobileActionBtn {
+        height: 100vh;
+    } */
+    
+    /* .description {
+        height: 50px;
+    } */
 }

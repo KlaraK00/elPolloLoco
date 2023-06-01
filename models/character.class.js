@@ -2,7 +2,7 @@ class Character extends MovableObject {
 
     height = 280;
     width = 120;
-    y = 70; //160 ? springt anfangs runter
+    y = 10;
     x = 200;
     world;
     speed = 2.5;
@@ -17,13 +17,6 @@ class Character extends MovableObject {
         right: 40,
         bottom: 30
     }
-    // intervallId = null;
-    // VarName1 = this.animating();
-    // animate = null;
-    // animateName = setInterval( () => {
-    //     this.animating();
-    // }, this.timeInterval);
-
 
     IMAGES_WALKING = [
         './img/img/2_character_pepe/2_walk/W-21.png',
@@ -33,7 +26,6 @@ class Character extends MovableObject {
         './img/img/2_character_pepe/2_walk/W-25.png',
         './img/img/2_character_pepe/2_walk/W-26.png'
     ]
-
 
     IMAGES_JUMPING = [
         './img/img/2_character_pepe/3_jump/J-31.png',
@@ -46,7 +38,6 @@ class Character extends MovableObject {
         './img/img/2_character_pepe/3_jump/J-38.png',
         './img/img/2_character_pepe/3_jump/J-39.png',
     ]
-
 
     IMAGES_STANDING = [
         './img/img/2_character_pepe/1_idle/idle/I-1.png',
@@ -61,7 +52,6 @@ class Character extends MovableObject {
         './img/img/2_character_pepe/1_idle/idle/I-10.png'
     ]
 
-
     IMAGES_DEAD = [
         './img/img/2_character_pepe/5_dead/D-51.png',
         './img/img/2_character_pepe/5_dead/D-52.png',
@@ -72,13 +62,15 @@ class Character extends MovableObject {
         './img/img/2_character_pepe/5_dead/D-57.png'
     ]
 
-
     IMAGES_HURT = [
         'img/img/2_character_pepe/4_hurt/H-41.png',
         'img/img/2_character_pepe/4_hurt/H-42.png',
         'img/img/2_character_pepe/4_hurt/H-43.png'
     ]
 
+    AUDIO_WALKING = new Audio('./audio/walking.mp3');
+    AUDIO_JUMP = new Audio('./audio/jump.mp3');
+    AUDIO_HURT = new Audio('./audio/hurt.mp3');
 
     constructor(world) {
         super().loadImage('./img/img/2_character_pepe/2_walk/W-21.png');
@@ -109,7 +101,7 @@ class Character extends MovableObject {
         if(this.world.keyboard.LEFT && this.x > 0) {
             this.moveWrongDirection();
         } //wieso 172.5 genau??
-        if(this.world.keyboard.UP && this.y == 145) {
+        if(this.world.keyboard.UP && this.y == 85) { // davor 145 CHARACTER Y
             this.jump();
         }
         this.world.cameraX = -this.x + 200;
@@ -117,16 +109,20 @@ class Character extends MovableObject {
 
 
     animating() {
+        console.log('character y = ' + this.y);
+        this.AUDIO_WALKING.pause();
         console.log('this.y = '+ this.y);
         if (this.isDead()) {
             this.characterIsDead();
         } else if (this.isHurt()) {
+            this.AUDIO_HURT.play();
             console.log("is Hurt Character", this.isHurt());
             this.playAnimation(this.IMAGES_HURT);
         } else if (this.isAboveGround()) {
-            // this.timeInterval = 100;
+            this.AUDIO_JUMP.play();
             this.playAnimation(this.IMAGES_JUMPING);
         } else if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
+            this.AUDIO_WALKING.play();
             this.timeInterval = 100;
             this.playAnimation(this.IMAGES_WALKING);
         } 
@@ -149,29 +145,6 @@ class Character extends MovableObject {
     }
 
 
-    // playDeadAnimation(images) {
-    //     this.currentImage = 0;
-    //     this.finalDeadAnimation = 
-    //         setStoppableInterval( () => {
-    //             this.animatingDead(images);
-    //         }, 200);
-    // }
-
-
-    // animatingDead(images) {
-    //         let i = this.currentImage % images.length; // let i = 6 % 6; 1, Rest 0 (Modulu hebt nur den Rest auf)
-    //         // i = 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, ... % = "modulo"
-    //         let path = images[i];
-    //         this.img = this.imageCache[path];
-    //         this.currentImage++;
-    //         if (this.currentImage > 6) {
-    //             this.deadCharacter = true;
-    //             // clearInterval(this.finalDeadAnimation);
-    //             // clearInterval(this.animation);
-    //         }
-    // }
-
-
     collectCoin() {
         if (this.amountCoins >= 100) {
             this.amountCoins = 100;
@@ -190,8 +163,6 @@ class Character extends MovableObject {
 
     characterIsDead() {
         this.playAnimation(this.IMAGES_DEAD);
-        // this.deadCharacter = true;
-        // clearInterval(this.moving);
         this.myTimeout = setTimeout(stopGame, 2000);
     }
 }

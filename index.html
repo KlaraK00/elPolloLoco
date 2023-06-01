@@ -9,6 +9,12 @@
 <!-- moveableObject Zeile 109 checkcollision -> noch coins mit index verknüpfen
      mit forschleife? oder mit modulu? mhm mal schaui -->
 <!-- world Zeile 58 scale funktioniert nicht? how it's going? -->
+<!-- wieso body 97vh? & okay, wenn Startbild verzogen wird?-->
+<!-- mobileActionBtnTopImgDiv2 besser? und dann auch ausgeblendet? -->
+<!-- Failed to execute 'exitFullscreen' on 'Document': Document not active FEHLERMELDUNG DOCH NICHT -->
+<!-- 405 height statt 480 -->
+<!-- playBackgroundmusic() zuerst schon, jetzt nicht mehr funktionieren -->
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,17 +44,24 @@
     <script src="./models/endboss.class.js"></script> 
     <script src="./levels/level1.js"></script>
 </head>
-<body>
+<body onload="playBackgroundmusic()">
     <!-- <div id="fullscreen"> -->
         <!-- <h1>El pollo loco</h1> -->
-        <div id="canvasDiv">
+        <div id="canvasDiv" style="position: relative">
+            
             <div class="mobileActionBtn">
                 <div class="mobileActionBtnTop">
                     <div class="mobileActionBtnTopImgDiv">
                         <img id="mobileActionBtnTopImgDiv" onclick="startGame()" src="./img/img/10_others/play.png" alt="play">
                     </div>
                     <div class="mobileActionBtnTopImgDiv">
-                        <img id="mobileActionBtnTopImgDiv" src="./img/img/10_others/mute.png" alt="mute">
+                        <img id="mobileActionBtnTopImgDiv2" src="./img/img/10_others/mute.png" alt="mute">
+                    </div>
+                    <div id="minimize" class="dNone mobileActionBtnTopImgDiv">
+                        <img onclick="minimizeComplete()" src="./img/img/10_others/cross.png" alt="fullscreen">
+                    </div>
+                    <div id="fullsize" class="mobileActionBtnTopImgDiv">
+                        <img onclick="fullsizeComplete()" src="./img/img/10_others/fullscreen.png" alt="fullscreen">
                     </div>
                 </div>
                 <div class="mobileActionBtnBottom">
@@ -70,26 +83,29 @@
                     </div>
                 </div>
             </div>
-            <img id="startScreen" src="./img/img/9_intro_outro_screens/start/startscreen_1.png" class="screen" alt="startscreen">
-            <img id="endscreenGameOver" src="./img/img/9_intro_outro_screens/game_over/game over.png" class="screen dNone" alt="GameOver">
-            <img id="endscreenYouLost" src="./img/img/9_intro_outro_screens/game_over/you lost.png" class="screen dNone" alt="endscreen">
-            <canvas id="canvas" width="720" height="480">
+
+            <img class="screen" height="405" width="720" id="startScreen" src="./img/img/9_intro_outro_screens/start/startscreen_1.png"  alt="startscreen">
+            <img height="405" width="720" id="endscreenGameOver" src="./img/img/9_intro_outro_screens/game_over/game over.png" class="screen dNone" alt="GameOver">
+            <img height="405" width="720" id="endscreenYouLost" src="./img/img/9_intro_outro_screens/game_over/you lost.png" class="screen dNone" alt="endscreen">
+            
+            <canvas height="405" width="720" id="canvas">
             </canvas>
+
             <div class="description">
                 <div>
                     <div>
-                        "RIGHT" = move right
+                        RIGHT = move right
                     </div>
                     <div>
-                        "LEFT" = move left
+                        LEFT = move left
                     </div>
                 </div>
                 <div>
                     <div>
-                        "D" = throw bottles
+                        D = throw bottles
                     </div>
                     <div>
-                        "UP" = jump
+                        UP = jump
                     </div>
                 </div>
             </div>

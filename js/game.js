@@ -7,7 +7,17 @@ let youLost = true;
 let endboss;
 let alreadyPlayed = false;
 let playedAlready = false;
+let AUDIO_GAMESTART = new Audio('./audio/gameStart.mp3');
+let AUDIO_LOOSE = new Audio('./audio/loose.mp3');
+let AUDIO_WIN = new Audio('./audio/win.mp3');
+let AUDIO_BACKGROUND = new Audio('./audio/background.mp3');
 
+function playBackgroundmusic() {
+    AUDIO_BACKGROUND.play();
+    // this.AUDIO_BACKGROUND.addEventListener('ended', () => {
+    //     this.play();
+    // }, false);
+}
 
 function init() {
     canvas = document.getElementById('canvas');
@@ -19,161 +29,6 @@ function init() {
     this.bindBtnsPressEventsTouch();
 }
 
-function bindBtnsPressEventsMouse() {
-    document.getElementById('btnLeft').addEventListener('mousedown' , (event) => {
-        event.preventDefault();
-        keyboard.LEFT = true;
-    }); 
-
-
-    document.getElementById('btnLeft').addEventListener('mouseup' , (event) => {
-        event.preventDefault();
-        keyboard.LEFT = false;
-    }); 
-
-
-    document.getElementById('btnRight').addEventListener('mousedown' , (event) => {
-        event.preventDefault();
-        keyboard.RIGHT = true;
-    }); 
-
-
-    document.getElementById('btnRight').addEventListener('mouseup' , (event) => {
-        event.preventDefault();
-        keyboard.RIGHT = false;
-    }); 
-
-
-    document.getElementById('btnJump').addEventListener('mousedown' , (event) => {
-        event.preventDefault();
-        keyboard.UP = true;
-    }); 
-
-
-    document.getElementById('btnJump').addEventListener('mouseup' , (event) => {
-        event.preventDefault();
-        keyboard.UP = false;
-    }); 
-
-
-    document.getElementById('btnThrow').addEventListener('mousedown' , (event) => {
-        event.preventDefault();
-        keyboard.D = true;
-    }); 
-
-
-    document.getElementById('btnThrow').addEventListener('mouseup' , (event) => {
-        event.preventDefault();
-        keyboard.D = false;
-    }); 
-}
-
-
-function bindBtnsPressEventsTouch() {
-    document.getElementById('btnLeft').addEventListener('touchstart' , (event) => {
-        event.preventDefault();
-        keyboard.LEFT = true;
-    }); 
-
-
-    document.getElementById('btnLeft').addEventListener('touchend' , (event) => {
-        event.preventDefault();
-        keyboard.LEFT = false;
-    }); 
-
-
-    document.getElementById('btnRight').addEventListener('touchstart' , (event) => {
-        event.preventDefault();
-        keyboard.RIGHT = true;
-    }); 
-
-
-    document.getElementById('btnRight').addEventListener('touchend' , (event) => {
-        event.preventDefault();
-        keyboard.RIGHT = false; 
-    }); 
-
-    document.getElementById('btnJump').addEventListener('touchstart' , (event) => {
-        event.preventDefault();
-        keyboard.UP = true;
-    }); 
-
-
-    document.getElementById('btnJump').addEventListener('touchend' , (event) => {
-        event.preventDefault();
-        keyboard.UP = false;
-    }); 
-
-
-    document.getElementById('btnThrow').addEventListener('touchstart' , (event) => {
-        event.preventDefault();
-        keyboard.D = true;
-    }); 
-
-
-    document.getElementById('btnThrow').addEventListener('touchend' , (event) => {
-        event.preventDefault();
-        keyboard.D = false;
-    });
-}
-
-
-// window.addEventListener('touchstart' , (event) => {
-//     if (document.getElementById('btnLeft'))
-//     event.preventDefault();
-//     keyboard.LEFT = true;
-// }); 
-
-
-// window.document.getElementById('btnLeft').addEventListener('touchend' , (event) => {
-//     event.preventDefault();
-//     keyboard.LEFT = true;
-// }); 
-
-
-window.addEventListener("keydown", (event) => {
-    if(event.keyCode == 68) {
-        keyboard.D = true;
-    }
-    if(event.keyCode == 40) {
-        keyboard.DOWN = true;
-    }
-    if(event.keyCode == 38) {
-        keyboard.UP = true;
-    }
-    if(event.keyCode == 37) {
-        keyboard.LEFT = true;
-    }
-    if(event.keyCode == 39) {
-        keyboard.RIGHT = true;
-    }
-    if(event.keyCode == 32) {
-        keyboard.SPACE = true;
-    }
-});
-
-
-window.addEventListener("keyup", (event) => {
-    if(event.keyCode == 68) {
-        keyboard.D = false;
-    }
-    if(event.keyCode == 40) {
-        keyboard.DOWN = false;
-    }
-    if(event.keyCode == 38) {
-        keyboard.UP = false;
-    }
-    if(event.keyCode == 37) {
-        keyboard.LEFT = false;
-    }
-    if(event.keyCode == 39) {
-        keyboard.RIGHT = false;
-    }
-    if(event.keyCode == 32) {
-        keyboard.SPACE = false;
-    }
-});
-
 
 function setStoppableInterval(fn, time) {
     let id = setInterval(fn, time);
@@ -183,6 +38,7 @@ function setStoppableInterval(fn, time) {
 
 function startGame() {
     topBtnsDissapear();
+    AUDIO_GAMESTART.play();
     startScreenDisappears();
     init();
 }
@@ -215,8 +71,10 @@ function endAllIntervals() {
 
 function showEndscreen() {
     if (characterIsDead()) {
+        AUDIO_LOOSE.play();
         showYouLostScreen();
     } else {
+        AUDIO_WIN.play();
         showGameOverScreen();
     }
 }
@@ -236,6 +94,17 @@ function showGameOverScreen() {
     document.getElementById('endscreenGameOver').classList.remove('dNone');
 }
 
+function minimizeComplete() {
+    exitFullscreen();
+    document.getElementById('fullsize').classList.remove('dNone');
+    document.getElementById('minimize').classList.add('dNone');
+}
+
+function fullsizeComplete() {
+    fullscreen();
+    document.getElementById('fullsize').classList.add('dNone');
+    document.getElementById('minimize').classList.remove('dNone');
+}
 
 function fullscreen() {
     let fullscreen = document.getElementById('canvasDiv');

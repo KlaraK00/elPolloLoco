@@ -14,16 +14,6 @@ class World {
     AUDIO_THROW = new Audio('./audio/throw.mp3');
 
 
-    // enemiesLength() {
-    //     // debugger;
-    //     if (this.level.enemies.length < 1) {
-    //         return 0 
-    //     } else {
-    //         return this.level.enemies.length - 1
-    //     };
-    // }
-
-
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -109,7 +99,9 @@ class World {
                 if (this.character.amountBottlesInPercentage == 0) {
                     return false;
                 } else {
-                    this.AUDIO_THROW.play();
+                    if (volumeOn) {
+                        this.AUDIO_THROW.play();
+                    }
                     let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
                     this.throwedBottles.push(bottle);
                     this.character.amountBottlesInPercentage = (20 - this.throwedBottles.length) * 5;

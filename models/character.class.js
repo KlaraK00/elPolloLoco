@@ -110,19 +110,27 @@ class Character extends MovableObject {
 
     animating() {
         console.log('character y = ' + this.y);
-        this.AUDIO_WALKING.pause();
+        if (volumeOn) {
+            this.AUDIO_WALKING.pause();
+        }
         console.log('this.y = '+ this.y);
         if (this.isDead()) {
             this.characterIsDead();
         } else if (this.isHurt()) {
-            this.AUDIO_HURT.play();
+            if (volumeOn) {
+                this.AUDIO_HURT.play();
+            }
             console.log("is Hurt Character", this.isHurt());
             this.playAnimation(this.IMAGES_HURT);
         } else if (this.isAboveGround()) {
-            this.AUDIO_JUMP.play();
+            if (volumeOn) {
+                this.AUDIO_JUMP.play();
+            }
             this.playAnimation(this.IMAGES_JUMPING);
         } else if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
-            this.AUDIO_WALKING.play();
+            if (volumeOn) {
+                this.AUDIO_WALKING.play();
+            }
             this.timeInterval = 100;
             this.playAnimation(this.IMAGES_WALKING);
         } 

@@ -11,22 +11,44 @@ let AUDIO_GAMESTART = new Audio('./audio/gameStart.mp3');
 let AUDIO_LOOSE = new Audio('./audio/loose.mp3');
 let AUDIO_WIN = new Audio('./audio/win.mp3');
 let AUDIO_BACKGROUND = new Audio('./audio/background.mp3');
+let volumeOn = true;
+
+
+function mute() {
+    volumeOn = false;
+    AUDIO_BACKGROUND.pause();
+    document.getElementById('muteDiv').classList.add('dNone');
+    document.getElementById('volumeDiv').classList.remove('dNone');
+}
+
+function volume() {
+    volumeOn = true;
+    playBackgroundmusic();
+    document.getElementById('muteDiv').classList.remove('dNone');
+    document.getElementById('volumeDiv').classList.add('dNone');
+}
 
 function playBackgroundmusic() {
-    AUDIO_BACKGROUND.play();
-    // this.AUDIO_BACKGROUND.addEventListener('ended', () => {
-    //     this.play();
-    // }, false);
+    if (volumeOn) {
+        setTimeout(playAudioOnRepeat(AUDIO_BACKGROUND), 1000);
+    }
 }
+
+
+function playAudioOnRepeat(audio) {
+    audio.play();
+    audio.loop = true;
+}
+
 
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     console.log('My character is ', world.character);
     endboss = world.level.enemies[world.level.enemies.length - 1];
-    this.enboss = endboss;
-    this.bindBtnsPressEventsMouse();
-    this.bindBtnsPressEventsTouch();
+    // enboss = endboss; //.this
+    bindBtnsPressEventsMouse(); //.this
+    bindBtnsPressEventsTouch(); //.this
 }
 
 
@@ -38,7 +60,9 @@ function setStoppableInterval(fn, time) {
 
 function startGame() {
     topBtnsDissapear();
-    AUDIO_GAMESTART.play();
+    if (volumeOn){
+        AUDIO_GAMESTART.play();
+    }
     startScreenDisappears();
     init();
 }
@@ -71,10 +95,14 @@ function endAllIntervals() {
 
 function showEndscreen() {
     if (characterIsDead()) {
-        AUDIO_LOOSE.play();
+        if (volumeOn) {
+            AUDIO_LOOSE.play();
+        }
         showYouLostScreen();
     } else {
-        AUDIO_WIN.play();
+        if (volumeOn) {
+            AUDIO_WIN.play();
+        }
         showGameOverScreen();
     }
 }
@@ -94,17 +122,20 @@ function showGameOverScreen() {
     document.getElementById('endscreenGameOver').classList.remove('dNone');
 }
 
+
 function minimizeComplete() {
     exitFullscreen();
     document.getElementById('fullsize').classList.remove('dNone');
     document.getElementById('minimize').classList.add('dNone');
 }
 
+
 function fullsizeComplete() {
     fullscreen();
     document.getElementById('fullsize').classList.add('dNone');
     document.getElementById('minimize').classList.remove('dNone');
 }
+
 
 function fullscreen() {
     let fullscreen = document.getElementById('canvasDiv');

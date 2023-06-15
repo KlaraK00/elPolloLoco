@@ -4,7 +4,7 @@ class Endboss extends MovableObject {
     height = 400;
     width = 280;
     energy = 100;
-    statusbarHealthEndboss = new StatusbarHealth(510, 10);
+    statusbarHealthEndboss = new StatusbarHealth(520, 90);
     speed = 0.2;
     deadEndboss = false;
     firstTime = true;
@@ -39,7 +39,6 @@ class Endboss extends MovableObject {
 
 
     constructor() {
-        // debugger;
         super().loadImage('./img/img/4_enemie_boss_chicken/1_walk/G1.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ALERTING);
@@ -54,10 +53,8 @@ class Endboss extends MovableObject {
     fullAnimation() {
         setStoppableInterval( () => {
             this.animate();
-            // this.animate().bind(this);
         }, 330);
         this.moveLeft();
-        // this.moveLeft().bind(this);
     }
 
     
@@ -68,6 +65,7 @@ class Endboss extends MovableObject {
             this.i++;
         } else {
             if (this.isDead()) {
+                clearInterval(24);
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);

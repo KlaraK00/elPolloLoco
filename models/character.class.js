@@ -81,63 +81,83 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.applyGravity();
         this.world = world;
-        setStoppableInterval( () => {
+        this.animateCharacter();
+    }
+
+    animateCharacter() {
+        setStoppableInterval(() => {
             this.animating();
         }, 150);
-        setStoppableInterval( () => {
+        setStoppableInterval(() => {
             this.moving();
         }, 1000 / 60);
-        // this.finalDeadAnimation = 
-        //     setInterval( () => {
-        //         this.animatingDead(this.IMAGES_DEAD);
-        //     }, 200);
     }
-
-
-    moving() {
-        if(this.world.keyboard.RIGHT && this.x < this.world.level.levelEndX) {
-            this.moveRightDirection();
-        }
-        if(this.world.keyboard.LEFT && this.x > 0) {
-            this.moveWrongDirection();
-        } //wieso 172.5 genau??
-        if(this.world.keyboard.UP && this.y == 85) { // davor 145 CHARACTER Y
-            this.jump();
-        }
-        this.world.cameraX = -this.x + 200;
-    }
-
 
     animating() {
-        console.log('character y = ' + this.y);
-        if (volumeOn) {
-            this.AUDIO_WALKING.pause();
-        }
-        console.log('this.y = '+ this.y);
+        this.pauseAudioWalking();
         if (this.isDead()) {
             this.characterIsDead();
         } else if (this.isHurt()) {
-            if (volumeOn) {
-                this.AUDIO_HURT.play();
-            }
-            console.log("is Hurt Character", this.isHurt());
-            this.playAnimation(this.IMAGES_HURT);
+            this.characterHurt();
         } else if (this.isAboveGround()) {
-            if (volumeOn) {
-                this.AUDIO_JUMP.play();
-            }
-            this.playAnimation(this.IMAGES_JUMPING);
-        } else if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
-            if (volumeOn) {
-                this.AUDIO_WALKING.play();
-            }
-            this.timeInterval = 100;
-            this.playAnimation(this.IMAGES_WALKING);
-        } 
-        else {
-            this.timeInterval = 1; //nimmt 1 nicht??
+            this.characterJumps();
+        } else if (this.characterCanWalk()) {
+            this.characterWalks();
+        } else {
             this.playAnimation(this.IMAGES_STANDING);
         }
+    }
+
+    characterHurt() {
+        this.playAudioHurt();
+        this.playAnimation(this.IMAGES_HURT);
+    }
+
+    characterJumps() {
+        this.playAudioJump();
+        this.playAnimation(this.IMAGES_JUMPING);
+    }
+
+    characterCanWalk() {
+        return this.world.keyboard.RIGHT || this.world.keyboard.LEFT
+    }
+
+    characterWalks() {
+        this.playAudioWalking();
+        this.timeInterval = 100;
+        this.playAnimation(this.IMAGES_WALKING);
+    }
+
+    pauseAudioWalking() {
+        if (volumeOn) 
+            this.AUDIO_WALKING.pause();
+    }
+
+    playAudioHurt() {
+        if (volumeOn) 
+            this.AUDIO_HURT.play();
+    }
+
+    playAudioJump() {
+        if (volumeOn) 
+            this.AUDIO_JUMP.play();
+    }
+
+    playAudioWalking() {
+        if (volumeOn) {
+            this.AUDIO_WALKING.play();
+        }
+    }
+
+    moving() {
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEndX) 
+            this.moveRightDirection();
+        if (this.world.keyboard.LEFT && this.x > 0)
+            this.moveWrongDirection();
+        if (this.world.keyboard.UP && this.y == 85) {
+            this.jump();
+        }
+        this.world.cameraX = -this.x + 200; //wieso?
     }
 
 
@@ -145,7 +165,7 @@ class Character extends MovableObject {
         this.x += this.speed;
         this.otherDirection = false;
     }
-    
+
 
     moveWrongDirection() {
         this.x -= this.speed;
@@ -162,11 +182,6 @@ class Character extends MovableObject {
             console.log('amountCoins is ' + this.amountCoins);
         }
     }
-
-
-    // collectingAnimationCharacter() {
-    //     console.log('collected Item');
-    // }
 
 
     characterIsDead() {

@@ -35,7 +35,9 @@ class MovableObject extends DrawableObject{
             
             if (this.isAboveGround() || this.speedY > 2.5) {
                     this.y -= this.speedY; 
-                    this.speedY -= this.acceleration;        
+                    this.speedY -= this.acceleration; 
+                    console.log('this.y = ' + this.y);
+                    console.log('this.speedY = ' + this.speedY);       
                 }
         }, 1000 / 25)
     }
@@ -44,7 +46,7 @@ class MovableObject extends DrawableObject{
         if (this instanceof ThrowableObject) { // ThrowableObject should always fall
             return true;
         } else {
-            return this.y < 80; //davor 140 davor 160
+            return this.y < 80; //davor 140 davor 160 davor 80
         }
     }
 
@@ -62,7 +64,6 @@ class MovableObject extends DrawableObject{
         if (this instanceof Endboss && this.isDead() || this instanceof Character && this.isDead()) {
             setStoppableInterval(() => {
                 let i = this.imageCurrent;
-                debugger;
                 if (i < images.length) {
                     let path = images[i];
                     this.img = this.imageCache[path];
@@ -77,46 +78,14 @@ class MovableObject extends DrawableObject{
             this.img = this.imageCache[path];
             this.currentImage++;
         }
-        // if (this instanceof Character && dead) {
-        //     this.currentImage == 3;
-        // } else {
-        //     this.currentImage++;
-        // }
-
-        
-        // } else if (this instanceof Endboss && this.x - world.character.x <= 300) {
-        //     setStoppableInterval(() => {
-        //         let i = this.imageCurrent;
-        //         debugger;
-        //         if (i < images.length) {
-        //             let path = images[i];
-        //             this.img = this.imageCache[path];
-        //             this.imageCurrent++;
-        //         } else {
-        //             playedAlready = true;
-        //         }
-        //     }, 500);
-
-        // } else if (this instanceof Endboss && this.x - world.character.x <= 300) {
-        //     setStoppableInterval(() => {
-        //         let i = this.imageCurrent;
-        //         debugger;
-        //         if (i < images.length) {
-        //             let path = images[i];
-        //             this.img = this.imageCache[path];
-        //             this.imageCurrent++;
-        //         }
-        //     }, 500);    
-        //     this.meetFirstTime = false;
     }
 
     jump() {
-        debugger;
-        this.speedY = 30;
+        this.speedY = 30; //davor 30
     }
 
     jumpsOnChicken() {
-        this.speedY = 25;
+        this.speedY = 25; //davor 25
     }
 
     //Character.isColliding(chicken)
@@ -150,13 +119,9 @@ class MovableObject extends DrawableObject{
                 this.y < obj.y + obj.height;
     }
 
-    // jumpOnChicken(obj) {
-    //     return this.y + this.height - this.offset.bottom > obj.y + obj.offset.top
-    // }
     
     hit() {
-        this.energy -= 2.5;
-        // this.character.scale(2, 2);
+        this.energy -= 10; //davor 2.5
         if (this.energy < 0) {
             this.energy = 0;
         } else {
@@ -165,17 +130,10 @@ class MovableObject extends DrawableObject{
         
     }
 
-    collectingAnimation(x) {
-        setInterval(collectAnimation(x), 1000 / 60);
-    }
-
-    // collectAnimation(y) { --> COLLECTINGANIMATION!
-    //     if (y >= 200 && y < 100) {
-    //         y + 1;
-    //     } else if (y = 100) {
-
-    //     }
+    // collectingAnimation(x) {
+    //     setInterval(collectAnimation(x), 1000 / 60);
     // }
+
 
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
@@ -186,8 +144,4 @@ class MovableObject extends DrawableObject{
     isDead() {
         return this.energy == 0;
     }
-
-    // isMeetingFirstTime() {
-    //     return this.meetFirstTime;
-    // }
 }

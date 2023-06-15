@@ -43,13 +43,20 @@
     <script src="./models/throwableObject.class.js"></script>
     <script src="./models/endboss.class.js"></script> 
     <script src="./levels/level1.js"></script>
+    <script src="./levels/level2.js"></script>
 </head>
-<body onload="playBackgroundmusic()">
+<body>
     <!-- <div id="fullscreen"> -->
         <!-- <h1>El pollo loco</h1> -->
         <div id="canvasDiv" style="position: relative">
+            <div class="loadingDiv" id="loadingDiv">
+                <div id="progressBar" class="progressBar">
+                    <div id="progressBarPercentage" class="progressbarPercentage"></div>
+                </div>
+                <div id="loading" class="loading">loading...</div>
+            </div>
             
-            <div class="mobileActionBtn">
+            <div id="mobileActionBtn" class="mobileActionBtn">
                 <div class="mobileActionBtnTop">
                     <div class="mobileActionBtnTopImgDiv">
                         <img id="mobileActionBtnTopImgDiv" onclick="startGame()" src="./img/img/10_others/play.png" alt="play">
@@ -87,6 +94,12 @@
                 </div>
             </div>
 
+            <div class="levelDiv dNone" id="level3Div">
+                <button class="levelBtn">LEVEL 3</button>
+            </div>
+            <div class="levelDiv dNone" id="level2Div">
+                <button onclick="initLevel2()" class="levelBtn">LEVEL 2</button>
+            </div>
             <img class="screen" height="405" width="720" id="startScreen" src="./img/img/9_intro_outro_screens/start/startscreen_1.png"  alt="startscreen">
             <img height="405" width="720" id="endscreenGameOver" src="./img/img/9_intro_outro_screens/game_over/game over.png" class="screen dNone" alt="GameOver">
             <img height="405" width="720" id="endscreenYouLost" src="./img/img/9_intro_outro_screens/game_over/you lost.png" class="screen dNone" alt="endscreen">
@@ -94,7 +107,7 @@
             <canvas height="405" width="720" id="canvas">
             </canvas>
 
-            <div class="description">
+            <div id="description" class="description">
                 <div>
                     <div>
                         RIGHT = move right

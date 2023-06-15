@@ -1,3 +1,8 @@
+@font-face {
+    font-family:'zabars';
+    src: url('../fonts/zabars/zabars.ttf') format('truetype');
+}
+
 body {
     height: 97vh;
     display: flex;
@@ -8,14 +13,10 @@ body {
     font-family: 'zabars', Arial, Helvetica, sans-serif;
 }
 
-@font-face {
-    font-family:'zabars';
-    src: url('../fonts/zabars/zabars.ttf') format('truetype');
-}
-
 canvas {
     background-color: black;
     display: block;
+    position: relative;
     /* height: 480px;
     width: 720px; */
 }
@@ -38,7 +39,8 @@ h1 {
     position: absolute;
     z-index: 99999;
     width: 100%;
-    height: calc(100% - 104px);
+    height: calc(100% - 104px); 
+    /* wenn height: ... weg, dann kein Balken mehr beim ftp server */
     /* width: 720px; */
     object-fit: contain;
 }
@@ -48,7 +50,7 @@ h1 {
     background-color: black;
 }
 
-.mobileActionBtn {
+/* .mobileActionBtn {
     position: absolute;
     z-index: 999999;
     display: flex;
@@ -56,6 +58,45 @@ h1 {
     justify-content: space-between;
     width: 100%;
     height: calc(100% - 104px);
+} */
+
+.loadingDiv {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 999999;
+    font-size: 2em;
+}
+
+.progressBar {
+    height: 50px;
+    width: 300px;
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
+
+.progressbarPercentage {
+    background-color: orange;
+    width: 100%;
+    height: 100%;
+}
+
+.mobileActionBtn {
+    position: absolute;
+    height: 405px;
+    width: 720px;
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .mobileActionBtn img {
@@ -81,6 +122,10 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
 }
 
 .mobileActionBtnTop img:hover {
@@ -107,6 +152,10 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .mobileActionBtnBottom>div {
@@ -146,6 +195,31 @@ h1 {
     /* justify-content: flex-start; */
 }
 
+.levelDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 999999;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    width: 100%;
+    height: 100%;
+}
+
+.levelBtn {
+    padding: 10px;
+    font-size: 2em;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-color: transparent;
+    font-family: 'zabars', Arial, Helvetica, sans-serif;
+}
+
+.levelBtn:hover {
+    background-color: rgba(255, 255, 255, 0.7); 
+    cursor: pointer; 
+}
+
 /* Smartphones */
 @media only screen and (max-width: 720px) {
     canvas {
@@ -161,7 +235,8 @@ h1 {
         width: unset;
     } */
     .mobileActionBtn {
-        width: 100%;
+        height: calc(100% - 104px) !important; 
+        /* width: 100%; */
     }
 }
 
@@ -174,7 +249,8 @@ h1 {
         font-size: 1.4em;
     }
     .mobileActionBtn {
-        height: calc(100% - 64.8px); 
+        /* height: 50%; */
+        height: calc(100% - 64.8px) !important; 
     }
     .screen {
         height: calc(100% - 64.8px);
@@ -188,16 +264,20 @@ h1 {
         width: 30px;
     }
     .mobileActionBtnBottomImgDiv {
-        height: 45px;
-        width: 45px;
+        height: 35px;
+        width: 35px;
+    }
+    .mobileActionBtnTopImgDiv {
+        height: 35px;
+        width: 35px;
     }
     .mobileActionBtnBottom img:active {
-        height: 40px;
-        width: 40px;
+        height: 35px;
+        width: 35px;
     }
     .mobileActionBtnTop img:active {
-        height: 40px;
-        width: 40px;
+        height: 35px;
+        width: 35px;
     }
 }
 
@@ -210,8 +290,8 @@ h1 {
         padding: 2px;
     }
     .mobileActionBtnTopImgDiv {
-        height: 40px;
-        width: 40px;
+        height: 35px;
+        width: 35px;
     }
     .mobileActionBtnTop img:active {
         height: 25px;
@@ -227,14 +307,14 @@ h1 {
         padding-left: 10px;
     }
     .mobileActionBtn {
-        height: calc(100% - 42.4px);
+        height: calc(100% - 42.4px) !important;
     }
     .screen {
         height: calc(100% - 42.4px);
     }
     .mobileActionBtnBottomImgDiv {
-        align-items: end;
-        padding-bottom: 5px;
+        align-items: center;
+        /* padding-bottom: 5px; */
     }
     .mobileActionBtn img {
         height: 20px;
@@ -257,4 +337,11 @@ h1 {
     /* .description {
         height: 50px;
     } */
+    
+/* element.style {
+}
+@media only screen and (max-width: 600px)
+.mobileActionBtn {
+    /* height: calc(100% - 64.8px); */
+/* } */
 }

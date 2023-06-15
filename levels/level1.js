@@ -67,13 +67,13 @@ let level1 = new Level(
         new Coins(1800),
         new Coins(1900),
         new Coins(2700),
-        new Coins(2800), 
+        new Coins(2800)
     ],
     [   
-        new Bottles(2500, 200),
-        new Bottles(2500, 250),
-        new Bottles(2900, 200),
-        new Bottles(3350, 200),
-        new Bottles(3350, 250)
+        new Bottles(2500, 100),
+        new Bottles(2500, 60),
+        new Bottles(2900, 100),
+        new Bottles(3350, 60),
+        new Bottles(3350, 100)
     ]
 );

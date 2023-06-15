@@ -1,16 +1,23 @@
-const level2 = new Level(
+let level2 = new Level(
     [
-        new Chicken(),
-        new Chicken(),
-        new Chicken(),
-        new Chicken(),
-        new Chicken(),
-        new Chicken(),
-        new Chicken(),
-        new Chicken(),
+        // new Chicken(),
+        // new Chicken(),
+        // new Chicken(),
+        // new Chicken(),
+        // new Chicken(),
+        // new Chicken(),
+        // new Chicken(),
+        // new Chicken(),
         new Endboss(),
     ],
     [
+        new Cloud(),
+        new Cloud(),
+        new Cloud(),
+        new Cloud(),
+        new Cloud(),
+        new Cloud(),
+        new Cloud(),
         new Cloud()
     ],
     [
@@ -56,17 +63,22 @@ const level2 = new Level(
         new BackgroundObject('./img/img/5_background/layers/1_first_layer/2.png', 719*7),
     ],
     [
+        new Coins(800),
+        new Coins(900),
+        new Coins(1000),
+        new Coins(1100),
+        new Coins(1400),
         new Coins(1600),
-        new Coins(1800),
-        new Coins(2500),
+        new Coins(2000),
+        new Coins(2200),
         new Coins(2600),
-        new Coins(3000),
-        new Coins(3020),
+        new Coins(2800)
     ],
     [   
-        new Bottles(2000),
-        new Bottles(2200),
+        new Bottles(2100),
+        new Bottles(2300),
+        new Bottles(3400),
         new Bottles(3500),
-        new Bottles(3400)
+        new Bottles(3700)
     ]
 );

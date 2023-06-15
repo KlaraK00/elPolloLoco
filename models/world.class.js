@@ -52,7 +52,7 @@ class World {
 
     checkCollisionEnemies() {
         this.level.enemies.forEach((enemy, index) => {
-            if(this.character.isColliding(enemy) && this.character.isAboveGround()) {
+            if(this.character.isColliding(enemy) && this.character.isAboveGround() && this.isNotEndboss(index)) {
                 this.level.enemies.splice(index, 1);
                 debugger;
                 this.character.jumpsOnChicken();
@@ -61,6 +61,10 @@ class World {
                 this.statusbarHealth.setPercentage(this.character.energy);
             }
         });
+    }
+
+    isNotEndboss(index) {
+        return !(index == this.level.enemies.length - 1);
     }
 
     checkCollisionCoins() {
@@ -85,6 +89,7 @@ class World {
             }
         });
     }
+
 
     checkCollisionThrowableObject() {
         this.throwedBottles.forEach((bottle) => {

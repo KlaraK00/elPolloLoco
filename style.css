@@ -197,7 +197,7 @@ h1 {
 
 .levelDiv {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     position: absolute;
     z-index: 999999;
@@ -278,6 +278,13 @@ h1 {
     .mobileActionBtnTop img:active {
         height: 35px;
         width: 35px;
+    }
+    .progressBar {
+        height: 25px;
+        width: 150px;
+    }
+    .loadingDiv {
+        font-size: 1em;
     }
 }
 

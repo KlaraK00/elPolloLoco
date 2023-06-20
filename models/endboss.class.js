@@ -9,6 +9,7 @@ class Endboss extends MovableObject {
     deadEndboss = false;
     firstTime = true;
     meetFirstTime = true;
+    index;
     i = 0;
     IMAGES_WALKING = [
         './img/img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -38,8 +39,10 @@ class Endboss extends MovableObject {
     ]
 
 
-    constructor() {
+    constructor(index) {
         super().loadImage('./img/img/4_enemie_boss_chicken/1_walk/G1.png');
+        this.index = index;
+        console.log('index of Endboss = ' + index);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ALERTING);
         this.loadImages(this.IMAGES_HURT);
@@ -65,7 +68,7 @@ class Endboss extends MovableObject {
             this.i++;
         } else {
             if (this.isDead()) {
-                clearInterval(24);
+                // clearInterval(24);
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);

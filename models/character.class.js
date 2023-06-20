@@ -96,7 +96,7 @@ class Character extends MovableObject {
     animating() {
         this.pauseAudioWalking();
         if (this.isDead()) {
-            this.characterIsDead();
+            this.characterIsReallyDead();
         } else if (this.isHurt()) {
             this.characterHurt();
         } else if (this.isAboveGround()) {
@@ -184,7 +184,7 @@ class Character extends MovableObject {
     }
 
 
-    characterIsDead() {
+    characterIsReallyDead() {
         this.playAnimation(this.IMAGES_DEAD);
         this.myTimeout = setTimeout(stopGame, 2000);
     }

@@ -11,7 +11,7 @@ class World {
     character = new Character(this);
     keyboard;
     myTimeout;
-    endboss = this.level.enemies[this.level.enemies.length - 1];
+    // endboss = this.level.enemies[this.level.enemies.length - 1]; //endboss weggegeben
     AUDIO_THROW = new Audio('./audio/throw.mp3');
 
 
@@ -54,7 +54,6 @@ class World {
         this.level.enemies.forEach((enemy, index) => {
             if(this.character.isColliding(enemy) && this.character.isAboveGround() && this.isNotEndboss(index)) {
                 this.level.enemies.splice(index, 1);
-                debugger;
                 this.character.jumpsOnChicken();
             } else if(this.character.isColliding(enemy)) {
                 this.character.hit();
@@ -93,17 +92,21 @@ class World {
 
     checkCollisionThrowableObject() {
         this.throwedBottles.forEach((bottle) => {
-            if (this.endboss.isColliding(bottle)) {
+            if (endboss.isColliding(bottle)) { //this weg
                 this.throwedBottles.splice(bottle, 1); //bottle verschwindet
-                if (this.endboss.isDead()) {
-                    this.endboss.energy = false;
+                if (endboss.isDead()) { //this weg
+                    // console.log('isdead() this.endboss.index ist ' + this.endboss.index);
+                    console.log('isdead() endboss.index ist ' + endboss.index);
+                    // endboss.energy = false; //this weg
                     this.youLost = true;
                     this.myTimeout = setTimeout(stopGame, 2000);
-                } else {
-                    this.endboss.hit();
+                } else if (!endboss.isDead()) { //this weg
+                    endboss.hit(); //this weg
+                    // console.log('this.endboss.index ist ' + this.endboss.index);
+                    console.log('endboss.index ist ' + endboss.index);
                 }
             }
-            this.endboss.statusbarHealthEndboss.setPercentage(this.endboss.energy);
+            endboss.statusbarHealthEndboss.setPercentage(endboss.energy); //this weg 2x
         })
     }
 

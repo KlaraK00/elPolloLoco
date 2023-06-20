@@ -84,6 +84,7 @@ function startGame() {
         AUDIO_GAMESTART.play();
     }
     startScreenDisappears();
+    // initVariableLevel1();
     init();
 }
 
@@ -102,13 +103,14 @@ function stopGame() {
     endOfGame = true;
     endAllIntervals();
     showEndscreen();
-    if(!characterIsDead()) {
+    debugger;
+    if(endbossIsDead()) {
         setTimeout(showNiveau, 2000);
     }
+    endboss = undefined;
 }
 
 function showNiveau() {
-    debugger;
     niveau+=1;
     if (niveau == 2) {
         document.getElementById('level2Div').classList.remove('dNone');
@@ -123,22 +125,31 @@ function initLevel2() {
     document.getElementById('endscreenGameOver').classList.add('dNone');
     document.getElementById('endscreenYouLost').classList.add('dNone');
     document.getElementById('level2Div').classList.add('dNone');
-    debugger;
     document.getElementById('level3Div').classList.add('dNone');
-    debugger;
+    youLost = false;
     endOfGame = false;
     alreadyPlayed = false;
+    playedAlready = false;
     niveau = 2;
+    percent = 0;
+    initVariableLevel2();
     init();
-    // startAllIntervals();
 }
 
-// function startAllIntervals() {
-    // for (let i = 0; i < intervalIds.length; i++) {
-    //     const id = intervalIds[i];
-    //     setInterval(id);            
-    // }  
-// }
+function initLevel1() {
+    document.getElementById('endscreenGameOver').classList.add('dNone');
+    document.getElementById('endscreenYouLost').classList.add('dNone');
+    document.getElementById('level2Div').classList.add('dNone');
+    document.getElementById('level3Div').classList.add('dNone');
+    youLost = false;
+    endOfGame = false;
+    alreadyPlayed = false;
+    playedAlready = false;
+    niveau = 1;
+    percent = 0;
+    initVariableLevel1();
+    init();
+}
 
 function endAllIntervals() {
     for (let i = 0; i < intervalIds.length; i++) {
@@ -149,22 +160,22 @@ function endAllIntervals() {
 
 
 function showEndscreen() {
-    if (characterIsDead()) {
-        if (volumeOn) {
-            AUDIO_LOOSE.play();
-        }
-        showYouLostScreen();
-    } else {
+    if (endbossIsDead()) {
         if (volumeOn) {
             AUDIO_WIN.play();
         }
         showGameOverScreen();
+    } else {
+        if (volumeOn) {
+            AUDIO_LOOSE.play();
+        }
+        showYouLostScreen();
     }
 }
 
 
-function characterIsDead() {
-    return world.endboss.energy
+function endbossIsDead() {
+    return endboss.energy == 0;
 }
 
 

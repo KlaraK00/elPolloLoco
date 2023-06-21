@@ -94,19 +94,25 @@ class World {
         this.throwedBottles.forEach((bottle) => {
             if (endboss.isColliding(bottle)) { //this weg
                 this.throwedBottles.splice(bottle, 1); //bottle verschwindet
-                if (endboss.isDead()) { //this weg
-                    // console.log('isdead() this.endboss.index ist ' + this.endboss.index);
-                    console.log('isdead() endboss.index ist ' + endboss.index);
-                    // endboss.energy = false; //this weg
-                    this.youLost = true;
-                    this.myTimeout = setTimeout(stopGame, 2000);
-                } else if (!endboss.isDead()) { //this weg
+                if (!endboss.isDead()) { //this weg
                     endboss.hit(); //this weg
-                    // console.log('this.endboss.index ist ' + this.endboss.index);
                     console.log('endboss.index ist ' + endboss.index);
+                } 
+                if (endboss.isDead()) { //this weg
+                    console.log('isdead() endboss.index ist ' + endboss.index);
+                    // this.youLost = true;
+                    if (!endOfGame) { //damit nur einmal ausgeführt wird
+                        clearInterval(27); //clear moveLeft() from endboss
+                        // clearInterval(104); everyTime another ID
+                        // clearInterval(121);
+                        // clearInterval(229);
+                        // clearInterval(271);
+                        // clearInterval(381);  
+                        this.myTimeout = setTimeout(stopGame, 1500);
+                    }
                 }
-            }
             endboss.statusbarHealthEndboss.setPercentage(endboss.energy); //this weg 2x
+            }
         })
     }
 

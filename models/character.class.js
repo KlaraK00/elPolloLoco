@@ -186,6 +186,7 @@ class Character extends MovableObject {
 
     characterIsReallyDead() {
         this.playAnimation(this.IMAGES_DEAD);
+        youLost = true;
         this.myTimeout = setTimeout(stopGame, 2000);
     }
 }

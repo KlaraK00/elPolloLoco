@@ -18,12 +18,12 @@ class DrawableObject {
             imagesLoaded++;
             percent = (imagesLoaded / imagesToLoad) * 100;
             console.log(percent, 'loaded');
-            document.getElementById('progressBarPercentage').style=`width: ${percent}%;`;
+            document.getElementById('progressBarPercentage').style.width = `${percent}%`; // davor style= `width: ....`
             let percentRounded = Math.round(percent);
             document.getElementById('loading').innerHTML= `${percentRounded}%`;
             if (percent == 100) {
                 setTimeout(disappearLoadingScreen, 2000);
-                playBackgroundmusic();
+                setTimeout(enableTopBtns, 2000);
             }
         }
         

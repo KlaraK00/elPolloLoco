@@ -130,11 +130,6 @@ class MovableObject extends DrawableObject{
         
     }
 
-    // collectingAnimation(x) {
-    //     setInterval(collectAnimation(x), 1000 / 60);
-    // }
-
-
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000; // difference in seconds

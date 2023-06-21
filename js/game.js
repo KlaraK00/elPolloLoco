@@ -3,7 +3,7 @@ let keyboard = new Keyboard();
 let intervalIds = [];
 let endOfGame = false;
 let world; 
-let youLost = false; //davor true
+let youLost = false; //davor true brauche ich nicht?
 let endboss;
 let alreadyPlayed = false;
 let playedAlready = false;
@@ -11,7 +11,7 @@ let AUDIO_GAMESTART = new Audio('./audio/gameStart.mp3');
 let AUDIO_LOOSE = new Audio('./audio/loose.mp3');
 let AUDIO_WIN = new Audio('./audio/win.mp3');
 let AUDIO_BACKGROUND = new Audio('./audio/background.mp3');
-let volumeOn = true;
+let volumeOn = false;
 let imagesToLoad = 0;
 let imagesLoaded = 0;
 let percent = 0;
@@ -43,14 +43,14 @@ function mute() {
 
 function volume() {
     volumeOn = true;
-    AUDIO_BACKGROUND.play();
+    playBackgroundmusic();
     document.getElementById('muteDiv').classList.remove('dNone');
     document.getElementById('volumeDiv').classList.add('dNone');
 }
 
 function playBackgroundmusic() {
     if (volumeOn) {
-        setTimeout(playAudioOnRepeat, 3000); //erst an, wenn Bilder geladen, nach Ladebalken
+        playAudioOnRepeat(); //erst an, wenn Bilder geladen, nach Ladebalken
     }
 }
 
@@ -75,24 +75,48 @@ function init() {
 function setStoppableInterval(fn, time) {
     let id = setInterval(fn, time);
     intervalIds.push(id);
+    // console.log('ID moveleft = ' + id);
 }
 
 
 function startGame() {
-    // topBtnsDissapear();
+    playBtnDissapear();
     if (volumeOn){
         AUDIO_GAMESTART.play();
     }
     startScreenDisappears();
-    // initVariableLevel1();
     init();
+    enableBtmBtns();
 }
 
+function playBtnDissapear() {
+    document.getElementById('mobileActionBtnTopImgDiv').parentElement.classList.add('dNone');
+}
 
-// function topBtnsDissapear() {
-//     document.getElementById('mobileActionBtnTopImgDiv').classList.add('dNone');
-// }
+function disableBtns() {
+    document.getElementById('mobileActionBtnTopImgDiv').style.pointerEvents = 'none';
+    document.getElementById('mobileActionBtnTopImgDiv2Volume').style.pointerEvents = 'none';
+    document.getElementById('mobileActionBtnTopImgDiv2Mute').style.pointerEvents = 'none';
+    document.getElementById('fullsize').style.pointerEvents = 'none';
+    document.getElementById('btnLeft').style.pointerEvents = 'none';
+    document.getElementById('btnRight').style.pointerEvents = 'none';
+    document.getElementById('btnJump').style.pointerEvents = 'none';
+    document.getElementById('btnThrow').style.pointerEvents = 'none';
+}
 
+function enableTopBtns() {
+    document.getElementById('mobileActionBtnTopImgDiv').style.pointerEvents = 'auto';
+    document.getElementById('mobileActionBtnTopImgDiv2Volume').style.pointerEvents = 'auto';
+    document.getElementById('mobileActionBtnTopImgDiv2Mute').style.pointerEvents = 'auto';
+    document.getElementById('fullsize').style.pointerEvents = 'auto';
+}
+
+function enableBtmBtns() {
+    document.getElementById('btnLeft').style.pointerEvents = 'auto';
+    document.getElementById('btnRight').style.pointerEvents = 'auto';
+    document.getElementById('btnJump').style.pointerEvents = 'auto';
+    document.getElementById('btnThrow').style.pointerEvents = 'auto';
+}
 
 function startScreenDisappears() {
     document.getElementById('startScreen').classList.add('dNone');
@@ -103,29 +127,23 @@ function stopGame() {
     endOfGame = true;
     endAllIntervals();
     showEndscreen();
-    debugger;
-    if(endbossIsDead()) {
-        setTimeout(showNiveau, 2000);
-    }
-    endboss = undefined;
+    setTimeout(showNiveau, 1200);
 }
 
 function showNiveau() {
-    niveau+=1;
-    if (niveau == 2) {
+    if(endbossIsDead()) {
         document.getElementById('level2Div').classList.remove('dNone');
-    } else if (niveau == 3) {
-        document.getElementById('level3Div').classList.remove('dNone');
     } else {
-        
+        document.getElementById('level1Div').classList.remove('dNone');
     }
 }
 
 function initLevel2() {
+    endboss = undefined;
     document.getElementById('endscreenGameOver').classList.add('dNone');
     document.getElementById('endscreenYouLost').classList.add('dNone');
     document.getElementById('level2Div').classList.add('dNone');
-    document.getElementById('level3Div').classList.add('dNone');
+    document.getElementById('level1Div').classList.add('dNone');
     youLost = false;
     endOfGame = false;
     alreadyPlayed = false;
@@ -137,10 +155,11 @@ function initLevel2() {
 }
 
 function initLevel1() {
+    endboss = undefined;
     document.getElementById('endscreenGameOver').classList.add('dNone');
     document.getElementById('endscreenYouLost').classList.add('dNone');
     document.getElementById('level2Div').classList.add('dNone');
-    document.getElementById('level3Div').classList.add('dNone');
+    document.getElementById('level1Div').classList.add('dNone');
     youLost = false;
     endOfGame = false;
     alreadyPlayed = false;

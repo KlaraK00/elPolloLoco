@@ -8,17 +8,17 @@ class DrawableObject {
     width = 100;
 
     //loadImage('img/test.png');
-    //loadImage kann dauern eine Sekunde; drawmethode schon bevor image geladen ist.
+    //loadImage kann dauern eine Sekunde; draw-methode schon bevor image geladen ist.
     loadImage(path) {
         imagesToLoad++;
         this.img = new Image(); //Image-Objekt existiert bereits; <img id="image">; image-tag / document.getElementById('image')
         
-        // ---------- ProgressBar ---------- //
+        // --------------- ProgressBar --------------- //
         this.img.onload = function() {
             imagesLoaded++;
             percent = (imagesLoaded / imagesToLoad) * 100;
             console.log(percent, 'loaded');
-            document.getElementById('progressBarPercentage').style.width = `${percent}%`; // davor style= `width: ....`
+            document.getElementById('progressBarPercentage').style.width = `${percent}%`;
             let percentRounded = Math.round(percent);
             document.getElementById('loading').innerHTML= `${percentRounded}%`;
             if (percent == 100) {

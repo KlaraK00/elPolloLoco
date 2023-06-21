@@ -10,6 +10,5 @@ class Bottles extends MovableObject {
         super().loadImage(this.IMAGE_BOTTLE);
         this.x = x;
         this.y = y;
-        // this.collectingAnimation(this.x);
     }
 }

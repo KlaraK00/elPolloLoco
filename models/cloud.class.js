@@ -5,8 +5,7 @@ class Cloud extends MovableObject {
 
     constructor() {
         super().loadImage('./img/img/5_background/layers/4_clouds/1.png');
-
-        this.x = 200 + Math.random() * 4000; // Zahl zwischen 200 und 2200
+        this.x = 200 + Math.random() * 4000; // number between 200 und 4200
         this.moveLeft();
     }
 }

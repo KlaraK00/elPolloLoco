@@ -3,14 +3,14 @@ let level2;
 function initVariableLevel2() {
     level2 = new Level(
         [
-            // new Chicken(),
-            // new Chicken(),
-            // new Chicken(),
-            // new Chicken(),
-            // new Chicken(),
-            // new Chicken(),
-            // new Chicken(),
-            // new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
             new Endboss(2),
         ],
         [

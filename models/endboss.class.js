@@ -11,6 +11,7 @@ class Endboss extends MovableObject {
     meetFirstTime = true;
     index;
     i = 0;
+    bossMoveLeftAnimationInterval;
     IMAGES_WALKING = [
         './img/img/4_enemie_boss_chicken/1_walk/G1.png',
         './img/img/4_enemie_boss_chicken/1_walk/G2.png',
@@ -38,29 +39,31 @@ class Endboss extends MovableObject {
         './img/img/4_enemie_boss_chicken/5_dead/G26.png'
     ]
 
-
     constructor(index) {
         super().loadImage('./img/img/4_enemie_boss_chicken/1_walk/G1.png');
         this.index = index;
-        console.log('index of Endboss = ' + index);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ALERTING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
-        // this.fullAnimation();
-        // setTimeout(this.fullAnimation, 2000);
-        // setStoppableInterval(this.checkCollisions.bind(this), 200);
     }
 
-
     fullAnimation() {
+        this.bossAnimate()
+        this.bossMoveLeft();
+    }
+
+    bossAnimate() {
         setStoppableInterval( () => {
             this.animate();
         }, 330);
-        this.moveLeft();
     }
 
-    
+    bossMoveLeft() {
+        this.bossMoveLeftAnimationInterval = setStoppableInterval(() => {
+            this.x -= this.speed;
+            }, 1000 / 60);
+    }
 
     animate() {
         if (this.i < 8) {
@@ -68,13 +71,11 @@ class Endboss extends MovableObject {
             this.i++;
         } else {
             if (this.isDead()) {
-                // clearInterval(24);
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else {
                 this.playAnimation(this.IMAGES_WALKING);
-                console.log(world.character.x + " this ist characterX");
             }
         }
     }

@@ -1,5 +1,4 @@
 class Character extends MovableObject {
-
     height = 280;
     width = 120;
     y = 10;
@@ -17,7 +16,6 @@ class Character extends MovableObject {
         right: 40,
         bottom: 30
     }
-
     IMAGES_WALKING = [
         './img/img/2_character_pepe/2_walk/W-21.png',
         './img/img/2_character_pepe/2_walk/W-22.png',
@@ -26,7 +24,6 @@ class Character extends MovableObject {
         './img/img/2_character_pepe/2_walk/W-25.png',
         './img/img/2_character_pepe/2_walk/W-26.png'
     ]
-
     IMAGES_JUMPING = [
         './img/img/2_character_pepe/3_jump/J-31.png',
         './img/img/2_character_pepe/3_jump/J-32.png',
@@ -38,7 +35,6 @@ class Character extends MovableObject {
         './img/img/2_character_pepe/3_jump/J-38.png',
         './img/img/2_character_pepe/3_jump/J-39.png',
     ]
-
     IMAGES_STANDING = [
         './img/img/2_character_pepe/1_idle/idle/I-1.png',
         './img/img/2_character_pepe/1_idle/idle/I-2.png',
@@ -51,7 +47,6 @@ class Character extends MovableObject {
         './img/img/2_character_pepe/1_idle/idle/I-9.png',
         './img/img/2_character_pepe/1_idle/idle/I-10.png'
     ]
-
     IMAGES_DEAD = [
         './img/img/2_character_pepe/5_dead/D-51.png',
         './img/img/2_character_pepe/5_dead/D-52.png',
@@ -61,13 +56,11 @@ class Character extends MovableObject {
         './img/img/2_character_pepe/5_dead/D-56.png',
         './img/img/2_character_pepe/5_dead/D-57.png'
     ]
-
     IMAGES_HURT = [
         'img/img/2_character_pepe/4_hurt/H-41.png',
         'img/img/2_character_pepe/4_hurt/H-42.png',
         'img/img/2_character_pepe/4_hurt/H-43.png'
     ]
-
     AUDIO_WALKING = new Audio('./audio/walking.mp3');
     AUDIO_JUMP = new Audio('./audio/jump.mp3');
     AUDIO_HURT = new Audio('./audio/hurt.mp3');
@@ -150,43 +143,48 @@ class Character extends MovableObject {
     }
 
     moving() {
-        if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEndX) 
+        if (this.CharacterCanMoveRight()) 
             this.moveRightDirection();
-        if (this.world.keyboard.LEFT && this.x > 0)
+        if (this.CharacterCanMoveLeft())
             this.moveWrongDirection();
-        if (this.world.keyboard.UP && this.y == 85) {
+        if (this.CharacterCanJump()) {
             this.jump();
         }
         this.world.cameraX = -this.x + 200; //wieso?
     }
 
+    CharacterCanMoveRight() {
+        return this.world.keyboard.RIGHT && this.x < this.world.level.levelEndX;
+    }
 
     moveRightDirection() {
         this.x += this.speed;
         this.otherDirection = false;
     }
 
+    CharacterCanMoveLeft() {
+        return this.world.keyboard.LEFT && this.x > 0;
+    }
 
     moveWrongDirection() {
         this.x -= this.speed;
         this.otherDirection = true;
     }
 
+    CharacterCanJump() {
+        return this.world.keyboard.UP && this.y == 85;
+    }
 
     collectCoin() {
         if (this.amountCoins >= 100) {
             this.amountCoins = 100;
-            console.log('amountCoins is ' + this.amountCoins);
         } else {
             this.amountCoins += 10;
-            console.log('amountCoins is ' + this.amountCoins);
         }
     }
 
-
     characterIsReallyDead() {
         this.playAnimation(this.IMAGES_DEAD);
-        youLost = true;
         this.myTimeout = setTimeout(stopGame, 2000);
     }
 }

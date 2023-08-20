@@ -77,6 +77,9 @@ class Character extends MovableObject {
         this.animateCharacter();
     }
 
+    /**
+     * This function is used to animate the character.
+     */
     animateCharacter() {
         setStoppableInterval(() => {
             this.animating();
@@ -101,11 +104,17 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * This function is used when character is hurt. It plays the audio and animation.
+     */
     characterHurt() {
         this.playAudioHurt();
         this.playAnimation(this.IMAGES_HURT);
     }
 
+    /**
+     * This function is used when character jumps. It plays the audio and animation.
+     */
     characterJumps() {
         this.playAudioJump();
         this.playAnimation(this.IMAGES_JUMPING);
@@ -115,6 +124,9 @@ class Character extends MovableObject {
         return this.world.keyboard.RIGHT || this.world.keyboard.LEFT
     }
 
+    /**
+     * This function is used when character walks. It plays the audio and animation.
+     */
     characterWalks() {
         this.playAudioWalking();
         this.timeInterval = 100;
@@ -142,18 +154,21 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * This function is used to move the character.
+     */
     moving() {
-        if (this.CharacterCanMoveRight()) 
+        if (this.characterCanMoveRight()) 
             this.moveRightDirection();
-        if (this.CharacterCanMoveLeft())
+        if (this.characterCanMoveLeft())
             this.moveWrongDirection();
-        if (this.CharacterCanJump()) {
+        if (this.characterCanJump()) {
             this.jump();
         }
         this.world.cameraX = -this.x + 200; //wieso?
     }
 
-    CharacterCanMoveRight() {
+    characterCanMoveRight() {
         return this.world.keyboard.RIGHT && this.x < this.world.level.levelEndX;
     }
 
@@ -162,7 +177,7 @@ class Character extends MovableObject {
         this.otherDirection = false;
     }
 
-    CharacterCanMoveLeft() {
+    characterCanMoveLeft() {
         return this.world.keyboard.LEFT && this.x > 0;
     }
 
@@ -171,10 +186,13 @@ class Character extends MovableObject {
         this.otherDirection = true;
     }
 
-    CharacterCanJump() {
+    characterCanJump() {
         return this.world.keyboard.UP && this.y == 85;
     }
 
+    /**
+     * This function is used to collect coins.
+     */
     collectCoin() {
         if (this.amountCoins >= 100) {
             this.amountCoins = 100;

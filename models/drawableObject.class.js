@@ -12,22 +12,25 @@ class DrawableObject {
     loadImage(path) {
         imagesToLoad++;
         this.img = new Image(); //Image-Objekt existiert bereits; <img id="image">; image-tag / document.getElementById('image')
-        
-        // --------------- ProgressBar --------------- //
+        this.progressbarFunction();        
+        this.img.src = path;
+    }
+
+    progressbarFunction() {
         this.img.onload = function() {
             imagesLoaded++;
             percent = (imagesLoaded / imagesToLoad) * 100;
-            console.log(percent, 'loaded');
-            document.getElementById('progressBarPercentage').style.width = `${percent}%`;
-            let percentRounded = Math.round(percent);
-            document.getElementById('loading').innerHTML= `${percentRounded}%`;
-            if (percent == 100) {
-                setTimeout(disappearLoadingScreen, 2000);
-                setTimeout(enableTopBtns, 2000);
-            }
+            // debugger;
+            // document.getElementById('progressBarPercentage').onload = function() {
+                // document.getElementById('progressBarPercentage').style.width = `${percent}%`;
+                // let percentRounded = Math.round(percent);
+                // document.getElementById('loading').innerHTML= `${percentRounded}%`;
+                // if (percent == 100) {
+                //     setTimeout(disappearLoadingScreen, 2000);
+                //     setTimeout(enableTopBtns, 2000);
+                // }
+            // }
         }
-        
-        this.img.src = path;
     }
 
     loadImages(array) {

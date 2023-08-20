@@ -48,6 +48,9 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
     }
 
+    /**
+     * This function is used to animate the endboss.
+     */
     fullAnimation() {
         this.bossAnimate()
         this.bossMoveLeft();
@@ -74,6 +77,9 @@ class Endboss extends MovableObject {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
+                if (niveau == 2) {
+                    this.speed=+1.5;
+                }
             } else {
                 this.playAnimation(this.IMAGES_WALKING);
             }

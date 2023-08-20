@@ -18,6 +18,9 @@ let percent = 0;
 let niveau = 1;
 
 // --------------- START GAME --------------- //
+/**
+ * This function starts the game.
+ */
 function startGame() {
     playBtnDissapear();
     playGamestart();
@@ -73,6 +76,9 @@ function disableBtns() {
     document.getElementById('btnThrow').style.pointerEvents = 'none';
 }
 
+/**
+ * This function initializes level 1 
+ * */
 function initLevel1() {
     initLevel1DisappearScreens();
     initLevel1SetVariables();
@@ -96,6 +102,9 @@ function initLevel1SetVariables() {
     percent = 0;
 }
 
+/**
+ * This function initializes level 2
+ * */
 function initLevel2() {
     initLevel2DisappearScreens();
     initLevel2SetVariables();
@@ -130,6 +139,9 @@ function disappearLoadingScreen() {
 }
 
 // --------------- AUDIO --------------- //
+/**
+ * This function is used to play background music.
+ */
 function playBackgroundmusic() {
     if (volumeOn) {
         playAudioOnRepeat();
@@ -156,6 +168,9 @@ function volume() {
 }
 
 //  --------------- MINIMIZE SCREEN --------------- //
+/**
+ * This funciton is used to minimze the screen.
+ */
 function minimizeComplete() {
     exitFullscreen();
     minimizeCompleteSetScreens();
@@ -193,6 +208,9 @@ function minimizeCompleteMediaQuery() {
 }
 
 // --------------- FULLSCREEN --------------- //
+/**
+ * This funciton is used to maximize the screen.
+ */
 function fullsizeComplete() {
     fullscreen();
     fullsizeCompleteSetScreens();
@@ -210,7 +228,8 @@ function fullsizeCompleteSetScreens() {
     document.getElementById('startScreen').style="height: 100vh; width: 100%; object-fit: contain;";
     document.getElementById('canvas').style="height: 100vh; width: 100%; object-fit: contain;";
     document.getElementById('canvasDiv').style="display: flex;align-items: center;";
-    document.getElementById('mobileActionBtn').style="height: 100vh;";
+    // document.getElementById('mobileActionBtn').style="height: 100vh;";
+    document.getElementById('mobileActionBtn').style="height: 100vh !important;"
 }
 
 function enterFullscreen(element) {
@@ -224,6 +243,9 @@ function enterFullscreen(element) {
 }
 
 // --------------- STOPGAME --------------- //
+/**
+ * This function is used to stop the game.
+ */
 function stopGame() {
     endOfGame = true;
     endAllIntervals();
@@ -231,6 +253,9 @@ function stopGame() {
     setTimeout(showNiveau, 1200);
 }
 
+/**
+ * This function is used to end all intervals.
+ */
 function endAllIntervals() {
     for (let i = 0; i < intervalIds.length; i++) {
         const id = intervalIds[i];
@@ -269,5 +294,25 @@ function showNiveau() {
         document.getElementById('level2Div').classList.remove('dNone');
     } else {
         document.getElementById('level1Div').classList.remove('dNone');
+    }
+}
+
+function visibleBtns() {
+    if(innerWidth < 600) {
+        // document.getElementById('mobileActionBtnBottom').classList.remove('dNone');
+        document.getElementById('rotatePhone').classList.remove('dNone');
+    } else {
+        // document.getElementById('mobileActionBtnBottom').classList.add('dNone');
+        document.getElementById('rotatePhone').classList.add('dNone');
+    }
+}
+
+function loadPercentage() {
+    document.getElementById('progressBarPercentage').style.width = `${percent}%`;
+    let percentRounded = Math.round(percent);
+    document.getElementById('loading').innerHTML= `${percentRounded}%`;
+    if (percent == 100) {
+        setTimeout(disappearLoadingScreen, 2000);
+        setTimeout(enableTopBtns, 2000);
     }
 }

@@ -1,28 +1,19 @@
-<!-- Wieso nicht drawableObject extends World -->
-<!-- unterschied adtomap für COINS nämlich verstehen why -->
-<!-- imageCache nicht verstehen -->
-<!-- #1: playAnimation ansehen bei Character und "dead", auch bei hurt() keine Bewegung -->
-<!-- bie Character deadanimation, wenn fertig, cannot clear Interval (Lösung: NUR Bild
-     wird nicht angezeigt, Intervall läuft td weiter...) !UND animation nicht schön: 
-     wieso manchmal schön angezeigt und manchmal nicht? -->
-<!-- moveableObject Zeile 90 Animation für CollectingObjects für Bottles mal machen -->
-<!-- moveableObject Zeile 109 checkcollision -> noch coins mit index verknüpfen
-     mit forschleife? oder mit modulu? mhm mal schaui -->
-<!-- world Zeile 58 scale funktioniert nicht? how it's going? -->
-<!-- wieso body 97vh? & okay, wenn Startbild verzogen wird?-->
-<!-- mobileActionBtnTopImgDiv2 besser? und dann auch ausgeblendet? -->
-<!-- Failed to execute 'exitFullscreen' on 'Document': Document not active FEHLERMELDUNG DOCH NICHT -->
-<!-- 405 height statt 480 -->
-<!-- playBackgroundmusic() zuerst schon, jetzt nicht mehr funktionieren -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- FAVICON -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./favicon/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
+    <link rel="manifest" href="./favicon/site.webmanifest">
+    <link rel="mask-icon" href="./favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <!-- FAVICON -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>El Pollo Loco</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" href="data:;base64,=">
     <script src="./models/keyboard.class.js"></script>
@@ -46,13 +37,18 @@
     <script src="./levels/level1.js"></script>
     <script src="./levels/level2.js"></script>
 </head>
-<body onload="disableBtns()">
-    <!-- <div id="fullscreen"> -->
-        <!-- <h1>El pollo loco</h1> -->
+<body onload="disableBtns(); visibleBtns(); loadPercentage()" onresize="visibleBtns()">
+    
         <div id="canvasDiv" style="position: relative">
+            <div id="confirmFullscreen" style="z-index: 9999999" height="405" width="720" class="dNone rotatePhone loadingDiv">
+                <button class="confirmFullscreenBtn" onclick="confirmFullscreen()">confirm fullscreen</button>
+            </div>
+            <div height="405" width="720" class="rotatePhone loadingDiv" id="rotatePhone" class="loadingDiv" alt="rotate the phone">
+                <div>Rotate your phone to have a better gaming experience.</div>
+            </div>
             <div class="loadingDiv" id="loadingDiv">
                 <div id="progressBar" class="progressBar">
-                    <div id="progressBarPercentage" class="progressbarPercentage"></div>
+                    <div  id="progressBarPercentage" class="progressbarPercentage"></div>
                 </div>
                 <div id="loading" class="loading">loading...</div>
             </div>
@@ -75,7 +71,7 @@
                         <img onclick="fullsizeComplete()" src="./img/img/10_others/fullscreen.png" alt="fullscreen">
                     </div>
                 </div>
-                <div class="mobileActionBtnBottom">
+                <div id="mobileActionBtnBottom" class="dNone mobileActionBtnBottom">
                     <div>
                         <div class="mobileActionBtnBottomImgDiv">
                             <img id="btnLeft" src="./img/img/10_others/arrowLeft.png" alt="arrow left">
@@ -129,6 +125,5 @@
             </div>
 
         </div>
-    <!-- </div> -->
 </body>
 </html>

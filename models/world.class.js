@@ -36,6 +36,9 @@ class World {
         this.keyboard = keyboard;
     }
 
+    /**
+     * This function is drawing the canvas.
+     */
     draw() {
         this.emptyMap();
         this.shiftCameraPosition();
@@ -132,6 +135,9 @@ class World {
         this.checkCollisionThrowableObject();
     }
 
+    /**
+     * This function is checking collisions with enemies.
+     */
     checkCollisionEnemies() {
         this.level.enemies.forEach((enemy, index) => {
             if(this.characterCanJumpOnChicken(enemy, index)) {
@@ -164,6 +170,9 @@ class World {
         this.statusbarHealth.setPercentage(this.character.energy);
     }
 
+    /**
+     * This function is checking collisions with coins.
+     */
     checkCollisionCoins() {
         this.level.coins.forEach((coin, index) => {
             if(this.characterCanCollectCoin(coin)) {
@@ -182,6 +191,9 @@ class World {
         this.level.coins.splice(index, 1);
     }
 
+    /**
+     * This function is checking collisions with bottles.
+     */
     checkCollisionBottles() {
         this.level.bottles.forEach((bottle, index) => {
             if(this.characterCanCollectBottle(bottle)) {
@@ -203,6 +215,9 @@ class World {
     
     }
 
+    /**
+     * This function is checking collisions with thowable Objects.
+     */
     checkCollisionThrowableObject() {
         this.throwedBottles.forEach((bottle) => {
             if (endboss.isColliding(bottle)) {

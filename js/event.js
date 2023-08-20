@@ -112,3 +112,26 @@ window.addEventListener("keyup", (event) => {
         keyboard.SPACE = false;
     }
 });
+
+window.matchMedia("(orientation:portrait)").addEventListener("change", e => {
+    let portrait = e.matches;
+
+    if (!portrait) {
+        
+        // debugger;
+        // fullsizeComplete();
+        document.getElementById('confirmFullscreen').classList.remove('dNone'); //in promise fehlermeldung
+
+    } else {
+        // alert("You are in portrait");
+        // minimizeComplete();
+        document.getElementById('mobileActionBtnBottom').classList.add('dNone');
+    }
+})
+
+function confirmFullscreen() {
+    fullsizeComplete();
+    document.getElementById('confirmFullscreen').classList.add('dNone');
+    document.getElementById('mobileActionBtnBottom').classList.remove('dNone');
+    document.getElementById('mobileActionBtn').style="height: 100vh !important;"
+}
